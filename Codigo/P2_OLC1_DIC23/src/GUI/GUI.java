@@ -5,7 +5,7 @@
 package GUI;
 
 import Reportes.ReporteErrores;
-import p1_olc1.P1_OLC1;
+import P2_OLC1.Proyecto2;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -25,21 +25,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
-import static p1_olc1.P1_OLC1.analizarJson;
 import clases.Erroor;
 import clases.Token;
 import static func.Funcion.ErrorList;
 import static func.Funcion.TokenList;
-import static p1_olc1.P1_OLC1.analizarStatpy;
 import Reportes.ReporteTokens;
 import clases.Simbolito;
 import func.Funcion;
 import static func.Funcion.HashMapFileJson;
 import static func.Funcion.HashMapVariablesJson;
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.LinkedList;
+import static P2_OLC1.Proyecto2.analizarJAVAN;
 
-import traductionPy.indentPy;
 
 /**
  *
@@ -120,15 +119,16 @@ public class GUI extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("StatPy Convertor");
+        setTitle("Java en Ñ");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(118, 83, 205));
@@ -246,22 +246,13 @@ public class GUI extends javax.swing.JFrame {
         jMenu2.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
 
         jMenuItem5.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
-        jMenuItem5.setText("StatPy");
+        jMenuItem5.setText("Javan");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem5);
-
-        jMenuItem6.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
-        jMenuItem6.setText("JSON");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
 
@@ -294,13 +285,26 @@ public class GUI extends javax.swing.JFrame {
         jMenu4.add(jMenuItem7);
 
         jMenuItem8.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
-        jMenuItem8.setText("Errores Léxicos");
+        jMenuItem8.setText("Errores");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
             }
         });
         jMenu4.add(jMenuItem8);
+
+        jMenuItem6.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
+        jMenuItem6.setText("Generar AST");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem6);
+
+        jMenuItem9.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
+        jMenuItem9.setText("Tabla Simbolos");
+        jMenu4.add(jMenuItem9);
 
         jMenuBar1.add(jMenu4);
 
@@ -331,11 +335,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void openAndDisplayFileContent() {
         JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter spFilter = new FileNameExtensionFilter("SP Files", "sp");
-        FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("JSON Files", "json");
+        FileNameExtensionFilter spFilter = new FileNameExtensionFilter("Javañ Files", "javañ");
         fileChooser.addChoosableFileFilter(spFilter);
-        fileChooser.addChoosableFileFilter(jsonFilter);
-
         int selection = fileChooser.showOpenDialog(this);
 
         if (selection == JFileChooser.APPROVE_OPTION) {
@@ -361,7 +362,7 @@ public class GUI extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         JFileChooser NewChooser = new JFileChooser();
-        FileNameExtensionFilter filtro1 = new FileNameExtensionFilter("Archivos SP y JSON (*.sp, *.json)", "sp", "json");
+        FileNameExtensionFilter filtro1 = new FileNameExtensionFilter("Archivo JAVAÑ (*.javañ)", "javañ");
         NewChooser.setFileFilter(filtro1);
 
         int selex = NewChooser.showSaveDialog(textAreaGG);
@@ -424,18 +425,8 @@ public class GUI extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-    //Boton seleccionar Analizador "statpy"
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-        jLabel4.setText("Statpy");
 
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-    //Boton seleccionar Analizador "json"
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-        jLabel4.setText("Json");
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-    //boton para ejecutar analizador
+   //boton para ejecutar analizador
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         VerificarAnalizador();
@@ -443,7 +434,7 @@ public class GUI extends javax.swing.JFrame {
     //boton reporte Tokens
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-        if ("Statpy".equals(jLabel4.getText())) {
+        if ("Javan".equals(jLabel4.getText())) {
             ReporteTokens ReporteT1 = new ReporteTokens();
             ReporteT1.ReporteT(TokenList);
             func.Funcion.contadorCases = 0;
@@ -454,18 +445,6 @@ public class GUI extends javax.swing.JFrame {
                 System.out.print(" Línea: " + token.getLinea());
                 System.out.println(" Columna: " + token.getColumna());
             }
-        } else if ("Json".equals(jLabel4.getText())) {
-            //System.out.println(HashMapFileJson); 
-            System.out.println(HashMapFileJson);
-            for (String i : HashMapFileJson.keySet()) {
-                System.out.println("Key: " + i);
-                LinkedList<Simbolito> listaSimbolos = HashMapFileJson.get(i);
-                for (Simbolito simbolito : listaSimbolos) {
-                    System.out.println("Value: " + simbolito.toString()); // Utiliza la implementación personalizada de toString() de Simbolito
-                }
-
-            }
-
         }
 
 
@@ -473,7 +452,7 @@ public class GUI extends javax.swing.JFrame {
     //boton para errores
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        if ("Statpy".equals(jLabel4.getText())) {
+        if ("Javan".equals(jLabel4.getText())) {
             ReporteErrores ReporteE1 = new ReporteErrores();
             ReporteE1.ReporteErr(ErrorList);
             for (Erroor error : ErrorList) {
@@ -485,102 +464,33 @@ public class GUI extends javax.swing.JFrame {
                 System.out.println("---------------------------");
             }
 
-        } else if ("Json".equals(jLabel4.getText())) {
-             ReporteErrores ReporteE1 = new ReporteErrores();
-            ReporteE1.ReporteErr(ErrorList);
-            for (Erroor error : ErrorList) {
-                System.out.println("Tipo de Error: " + error.getType());
-                System.out.println("Descripción: " + error.getDescription());
-                System.out.println("Carácter: " + error.getCharacter());
-                System.out.println("Línea: " + error.getLine());
-                System.out.println("Columna: " + error.getColumn());
-                System.out.println("---------------------------");
-            }
-            
-        }
+        } 
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+        jLabel4.setText("Javan");
+    }
+//GEN-FIRST:event_jMenuItem5ActionPerformed
+ 
+//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void VerificarAnalizador() {
-        if ("Statpy".equals(jLabel4.getText())) {
+        if ("Javan".equals(jLabel4.getText())) {
             String textt = textAreaGG.getText();
-            analizarStatpy(textt);
+            analizarJAVAN(textt);
         String traduccion ="";
         for (int i=0;i<Funcion.ListaTraducccionPy.size();i++){
             System.out.println(Funcion.ListaTraducccionPy.get(i));
             traduccion +=Funcion.ListaTraducccionPy.get(i)+ "\n";
             textAreaGG2.setText(traduccion);
         }
-        } else if ("Json".equals(jLabel4.getText())) {
-
-            String textt2 = textAreaGG.getText();
-            analizarJson(textt2);
-
-
-       
-//            pruebitaIndentationpy();
-        }
+        } 
     }
-//    
-//      private void pruebitaIndentationpy() {
-//        
-//
-//        indentPy concatenationCounter = new indentPy();
-//        indentPy concatenationCounter2 = new indentPy();
-//        indentPy concatenationCounter3 = new indentPy();
-//        indentPy concatenationCounter4 = new indentPy();
-//        indentPy concatenationCounter5 = new indentPy();
-//
-//        
-//        indentPy concatenationCounterx = new indentPy();
-//        indentPy concatenationCounterx1 = new indentPy();
-//        indentPy concatenationCounterx2 = new indentPy();
-//        indentPy concatenationCounterx3 = new indentPy();
-//
-//
-//
-//        concatenationCounter.setIndentationLevel(0); // Establece el nivel de indentación
-//        concatenationCounter2.setIndentationLevel(1);
-//        concatenationCounter3.setIndentationLevel(2);
-//        concatenationCounter4.setIndentationLevel(1);
-//        concatenationCounter5.setIndentationLevel(2);
-//        
-//        concatenationCounterx.setIndentationLevel(0);
-//        concatenationCounterx1.setIndentationLevel(1);
-//        concatenationCounterx2.setIndentationLevel(2);
-//        concatenationCounterx3.setIndentationLevel(2);
-//
-//
-//
-//        StringBuilder result = new StringBuilder();
-//        StringBuilder result2 = new StringBuilder();
-//        P1_OLC1.indentText(NombreActualArchivoJson, WIDTH);
-//
-//        result.append(concatenationCounter.concatenateWithIndentation("switch: \n"));
-//        result.append(concatenationCounter2.concatenateWithIndentation("case 1:\n"));
-//        result.append(concatenationCounter3.concatenateWithIndentation("return \"zero\"\n"));
-//        result.append(concatenationCounter4.concatenateWithIndentation("case 2:\n"));
-//        result.append(concatenationCounter5.concatenateWithIndentation("return \"one\"\n"));        
-//        Funcion.ListaTraducidaPy.add(result);
-//        
-//        result2.append(concatenationCounterx.concatenateWithIndentation("a = 1\n"));        
-//        result2.append(concatenationCounterx1.concatenateWithIndentation("if(a==1):\n"));        
-//        result2.append(concatenationCounterx2.concatenateWithIndentation("print(\"Hola Mundo xd\")\n"));        
-//        result2.append(concatenationCounterx3.concatenateWithIndentation("print(\"UwU\")\n"));  
-//        Funcion.ListaTraducidaPy.add(result2);
-//        
-//
-//        
-//
-////        System.out.println(result.toString());
-////        System.out.println(result2.toString());
-//          String traduccion ="";
-//        for (int i=0;i<Funcion.ListaTraducidaPy.size();i++){
-//            System.out.println(Funcion.ListaTraducidaPy.get(i));
-//            traduccion +=Funcion.ListaTraducidaPy.get(i);
-//            textAreaGG2.setText(traduccion);
-//        }
-//
-//    }
+
 
     /**
      * @param args the command line arguments
@@ -636,6 +546,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

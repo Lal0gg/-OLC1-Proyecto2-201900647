@@ -1,0 +1,73 @@
+// ------------  Paquetes e importaciones ------------
+package analizadores;
+
+import java_cup.runtime.*;
+import clases.Erroor;
+import  func.Funcion;
+import java.util.LinkedList; 
+
+
+//------> Codigo para el parser
+//------> Declaracion de variables, funciones y funciones de error
+
+parser code 
+{:  
+    
+
+    public void syntax_error(Symbol s) {       
+    if (s.value != null) {
+        Erroor errorsito = new Erroor("Sintactico", s.value.toString(), "No es valido en este lenguaje sintact", s.right, s.left);
+        Funcion.ErrorList.add(errorsito);
+        System.err.println("Error Sintactico: " + s.value.toString() + "  Fila: " + s.right + "  Columna: " + s.left + ". Recuperado");
+    } else {
+        // Handle the case where s.value is null (customize this part based on your needs)
+        System.err.println("Error Sintactico: Token sin valor asignado  Fila: " + s.right + "  Columna: " + s.left + ". Recuperado");
+    }
+}
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+    if (s.value != null) {
+        Erroor errorsito = new Erroor("Sintactico", s.value.toString(), "No es valido en este lenguaje sintact", s.right, s.left);
+        Funcion.ErrorList.add(errorsito);
+        System.err.println("Error Sintactico: " + s.value.toString() + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado");
+    } else {
+        // Handle the case where s.value is null (customize this part based on your needs)
+        System.err.println("Error Sintactico: Token sin valor asignado - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado");
+    }
+}
+
+:}
+
+
+//------> Codigo para las acciones gramaticales (no tocar)
+action code
+{:  :}
+
+
+//------> Declaración de terminales
+terminal String TkResVOID,TkResENTERO,TkResDOBLE,TkResBINARIO,TkResCARACTER,TkResCADENA;
+terminal String TkResSI,TkResSINO,TkResIMPRIMIR,TkResMIENTRAS,TkResPARA,TkResHACER;
+terminal String TkResEJECUTAR,TkResCORTAR,TkResCONTINUAR,TkResRETORNO,TkResREDONDEO,TkResLONGITUD,TkResACADENA;
+terminal String TkSimMAS,TkSimRESTA,TkSimMULTIPLICACION,TkSimDIVISION,TkSimMPOTENCIA,TkSimMODULO;
+terminal String TkSimPARENTESISAbre,TkSimPARENTESISCierra,TkSimLLAVEAbre,TkSimLLAVECierra,TkSimCORCHETEAbre,TkSimCORCHETECierra,TkSimCorchetesArreglo;
+terminal String TkSimIGUALIGUAL,TkSimDIFERENTE,TkSimMENOR,TkSimMENORIGUAL,TkSimMAYOR,TkSimMAYORIGUAL;
+terminal String TkSimOR,TkSimAND,TkSimINOT;
+terminal String TkSimPUNTOYCOMA,TkSimDOSPUNTOS,TkSimPUNTO,TkSimCOMA,TkSimIGUAL;
+terminal String TkJENTERO,TkJDECIMAL,TkJCADENA,TkJErChar,TkJIdentificador;
+
+//------> Declaración de no terminales
+non terminal inicio;
+non terminal instruccion;
+
+
+
+// ------------  GRAMATICA  ------------
+
+start with inicio; //Simbolo inicial
+
+
+inicio ::= instruccion
+;
+
+instruccion ::= TkJENTERO:val {: System.out.println(val); :}
+;

@@ -54,20 +54,81 @@ terminal String TkSimIGUALIGUAL,TkSimDIFERENTE,TkSimMENOR,TkSimMENORIGUAL,TkSimM
 terminal String TkSimOR,TkSimAND,TkSimINOT;
 terminal String TkSimPUNTOYCOMA,TkSimDOSPUNTOS,TkSimPUNTO,TkSimCOMA,TkSimIGUAL;
 terminal String TkJENTERO,TkJDECIMAL,TkJCADENA,TkJErChar,TkJIdentificador;
+terminal String TkResSELECTOR,TkResCASO;
+
 
 //------> Declaración de no terminales
 non terminal inicio;
-non terminal instruccion;
+non terminal instruccion,lista_instruccion,indicaciones,lista_indicaciones;
+non terminal lista_metodos, lista_ejecuciones, metodo, indicacion;
+non terminal instruccionImprimir,instruccionSi,instruccionMientras,instruccionHacerMientras;
+non terminal instruccionPara,instruccionSelectorCaso,declaracionVariable,asignacionVariable;
+non terminal instruccionCasteo,expresion;
 
 
+//------> PRECEDENCIA
+precedence left TkSimOzR;
+precedence left TkSimAND;
+precedence right TkSimINOT;
+precedence left TkSimIGUALIGUAL,TkSimDIFERENTE,TkSimMENOR,TkSimMENORIGUAL,TkSimMAYOR,TkSimMAYORIGUAL; 
+precedence left TkSimRESTA,TkSimMAS;
+precedence left TkSimMULTIPLICACION, TkSimDIVISION;
+precedence right TkSimRESTA;
 
 // ------------  GRAMATICA  ------------
 
 start with inicio; //Simbolo inicial
 
 
-inicio ::= instruccion
+inicio ::= lista_indicaciones 
 ;
 
-instruccion ::= TkJENTERO:val {: System.out.println(val); :}
+lista_indicaciones::= lista_indicaciones indicacion
+                    | indicacion             
 ;
+
+indicacion::= lista_metodos
+             | lista_ejecuciones
+             | error
+;
+
+lista_metodos::= lista_metodos metodo
+               | metodo
+;
+
+
+lista_ejecuciones::= lista_ejecuciones indicacion
+;                   | indicacion
+
+
+
+metodo::= TkResVOID  TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra             
+;
+
+
+lista_instruccion::= lista_instruccion instruccion
+                    | instruccion
+;
+
+instruccion::=      instruccionImprimir
+                |   instruccionSi
+                |   instruccionMientras
+                |   instruccionHacerMientras
+                |   instruccionPara
+                |   instruccionSelectorCaso
+                |   declaracionVariable
+                |   asignacionVariable
+                |   instruccionCasteo
+;
+
+
+expresion::=
+;
+
+instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISCierra expresion TkSimLLAVECierra  TkSimPUNTOYCOMA
+                        
+;
+
+
+
+

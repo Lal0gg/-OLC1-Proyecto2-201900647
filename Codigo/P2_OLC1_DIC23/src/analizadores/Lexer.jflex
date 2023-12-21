@@ -62,7 +62,8 @@ JidentificadorJ = [a-z][a-z0-9_]*
 "redondeo"              {Token NuevoToken = new Token("TkResREDONDEO",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkResREDONDEO> Tk: " + yytext());return new Symbol(sym.TkResREDONDEO, yycolumn, yyline, yytext()); }
 "longitud"              {Token NuevoToken = new Token("TkResLONGITUD",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkResLONGITUD> Tk: " + yytext());return new Symbol(sym.TkResLONGITUD, yycolumn, yyline, yytext()); }
 "aCadena"               {Token NuevoToken = new Token("TkResACADENA",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkResACADENA> Tk: " + yytext());return new Symbol(sym.TkResACADENA, yycolumn, yyline, yytext()); }
-
+"selector"              {Token NuevoToken = new Token("TkResSELECTOR",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkResSELECTOR> Tk: " + yytext());return new Symbol(sym.TkResSELECTOR, yycolumn, yyline, yytext()); }
+"caso"                  {Token NuevoToken = new Token("TkResCASO",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkResCASO> Tk: " + yytext());return new Symbol(sym.TkResCASO, yycolumn, yyline, yytext()); }
 
 
 // --------> Simbolos  = 27

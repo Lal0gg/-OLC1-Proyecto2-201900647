@@ -1,0 +1,29 @@
+void mimetodo(){
+	entero x=10;
+	cadena cad ="holamundo";
+	if(x==10){
+		imprimir(cad);
+	}
+
+	selector(x){
+		caso 1: 
+			imprimir("soy el caso 1");
+			cortar;
+		pordefecto:
+			imprimir("soy el caso por defecto");
+			cortar;
+	}
+	mimetodo2();
+}
+
+void mimetodo2(){
+	entero h=0;
+	mientras(h<10){
+		imprimir(h);
+	}
+	para(entero i=0; i<10; i++){
+		imprimir(i);
+	}
+}
+
+ejecutar mimetodo();

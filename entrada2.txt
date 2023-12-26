@@ -1,0 +1,48 @@
+entero suma(entero x, entero y){
+	entero result = x+y;
+	retorno entero;
+}
+
+entero multi(entero x, entero y){
+	entero result = x*y;
+	retorno entero;
+}
+
+void mimetodo(){
+	
+	entero var1;
+	entero var2 = 10;
+	
+	var1 = suma(1, 10);
+	var2 = multi(var1, 50);
+
+	imprimir(var1);
+	imprimir(var2);
+
+	si(var1 > var2){
+		imprimir("entra en el if");
+	}sino{
+		imprimir("entra en el else");
+	}
+	
+	imprimir("empieza el for");	
+	entero var3 = var2;
+	para (entero i =0; i < 10; i++){
+		var3= suma(var3, i);
+		imprimir(var3);
+	}
+	imprimir("finaliza el for");
+
+	binario bandera = true;
+	entero var4=10;
+	hacer{
+		if(var4==1){
+			bandera=false;
+		}
+		var4=var4-1;
+		imprimir(var4);
+	}while(bandera);
+	
+}
+
+ejecutar mimetodo();

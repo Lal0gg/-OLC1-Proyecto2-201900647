@@ -1,0 +1,155 @@
+// ------------  Paquetes e importaciones ------------
+package analizadores;
+
+import java_cup.runtime.*;
+import clases.Erroor;
+import func.Funcion;
+import java.util.LinkedList; 
+import Abstract.*;
+import instrucciones.*;
+import Expresiones.Primitivos.*;
+import Expresiones.Aritmeticas.*;
+
+
+//------> Codigo para el parser
+//------> Declaracion de variables, funciones y funciones de error
+
+parser code
+{:  
+    public void syntax_error(Symbol s) {
+    if (s.value != null) {
+        Erroor errorsito = new Erroor("Sintactico", s.value.toString(), "No es valido en este lenguaje sintact", s.right, s.left);
+        Funcion.ErrorList.add(errorsito);
+        System.err.println("Error Sintactico: " + s.value.toString() + "  Fila: " + s.right + "  Columna: " + s.left + ". Recuperado");
+    } else {
+        // Handle the case where s.value is null (customize this part based on your needs)
+        System.err.println("Error Sintactico: Token sin valor asignado  Fila: " + s.right + "  Columna: " + s.left + ". Recuperado");
+    }
+}
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+    if (s.value != null) {
+        Erroor errorsito = new Erroor("Sintactico", s.value.toString(), "No es valido en este lenguaje sintact", s.right, s.left);
+        Funcion.ErrorList.add(errorsito);
+        System.err.println("Error Sintactico: " + s.value.toString() + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado");
+    } else {
+        // Handle the case where s.value is null (customize this part based on your needs)
+        System.err.println("Error Sintactico: Token sin valor asignado - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado");
+    }
+}
+     
+:}
+
+
+//------> Codigo para las acciones gramaticales (no tocar)
+action code
+{:  :}
+
+
+//------> Declaración de terminales
+terminal String TkResVOID,TkResENTERO,TkResDOBLE,TkResBINARIO,TkResCARACTER,TkResCADENA;
+terminal String TkResSI,TkResSINO,TkResIMPRIMIR,TkResMIENTRAS,TkResPARA,TkResHACER;
+terminal String TkResEJECUTAR,TkResCORTAR,TkResCONTINUAR,TkResRETORNO,TkResREDONDEO,TkResLONGITUD,TkResACADENA;
+terminal String TkSimMAS,MENOS,TkSimMULTIPLICACION,TkSimDIVISION,TkSimMPOTENCIA,TkSimMODULO;
+terminal String TkSimPARENTESISAbre,TkSimPARENTESISCierra,TkSimLLAVEAbre,TkSimLLAVECierra,TkSimCORCHETEAbre,TkSimCORCHETECierra,TkSimCorchetesArreglo;
+terminal String TkSimIGUALIGUAL,TkSimDIFERENTE,TkSimMENOR,TkSimMENORIGUAL,TkSimMAYOR,TkSimMAYORIGUAL;
+terminal String TkSimOR,TkSimAND,TkSimINOT;
+terminal String TkSimPUNTOYCOMA,TkSimDOSPUNTOS,TkSimPUNTO,TkSimCOMA,TkSimIGUAL;
+terminal String TkJENTERO,TkJDECIMAL,TkJCADENA,TkJErChar,TkJIdentificador;
+terminal String TkResSELECTOR,TkResCASO,TkResTIPODE,TkResTRUE,TkResFALSE,UMENOS,TkSimINCREMENTO,TkSimDECREMENTO;
+
+
+//------> Declaración de no terminales
+non terminal inicio;
+non terminal instruccion,lista_instruccion;
+non terminal lista_metodos, lista_ejecuciones, metodo,ejecucion;
+non terminal instruccionImprimir,instruccionSi,instruccionMientras,instruccionHacerMientras;
+non terminal instruccionPara,instruccionSelectorCaso,declaracionVariable,asignacionVariable;
+non terminal instruccionCasteo,expresion,expresionRelacional,listaInicio;
+
+
+//------> PRECEDENCIA
+precedence left TkSimOR;
+precedence left TkSimAND;
+precedence right TkSimINOT;
+precedence left TkSimIGUALIGUAL,TkSimDIFERENTE,TkSimMENOR,TkSimMENORIGUAL,TkSimMAYOR,TkSimMAYORIGUAL; 
+precedence left TkSimMAS,MENOS;
+precedence left TkSimMULTIPLICACION, TkSimDIVISION;
+precedence left TkSimMPOTENCIA,TkSimMODULO;
+precedence right UMENOS;
+
+
+
+// ------------  GRAMATICA  ------------
+
+start with inicio; //Simbolo inicial
+
+
+inicio ::= lista_metodos  
+;
+
+
+
+lista_metodos ::= lista_metodos metodo
+               | metodo
+; 
+
+
+
+metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra
+            | ejecucion
+;
+
+ejecucion::= TkResEJECUTAR  TkJIdentificador  TkSimPARENTESISAbre TkSimPARENTESISCierra  TkSimPUNTOYCOMA
+;
+
+lista_instruccion ::= lista_instruccion instruccion
+                    | instruccion
+;
+
+instruccion::=      instruccionImprimir
+                |   instruccionSi
+                |   instruccionMientras
+                |   instruccionHacerMientras
+                |   instruccionPara
+                |   instruccionSelectorCaso
+                |   declaracionVariable
+                |   asignacionVariable
+                |   instruccionCasteo
+                |   error  TkSimPUNTOYCOMA
+;
+
+
+instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra  TkSimPUNTOYCOMA    {:RESULT = new instIMPRIMIR((Instruccion)a).Interpretarr();:}                   
+;
+
+expresion ::=     TkJENTERO :a    {:RESULT = new expENTERO(a); :}
+                | TkJDECIMAL :a   {:RESULT = new expDOUBLE(a);:}
+                | TkJErChar :a    {:RESULT = new expCHAR(a); :}
+                | TkJCADENA :a    {:RESULT = new expCADENA(a);:}
+                | TkResTRUE :a    {:RESULT = new expTRUE(a);:}
+                | TkResFALSE :a   {:RESULT = new expFALSE(a);:}
+                | TkJIdentificador :a    {:RESULT = new expIDENTIFICADOR(a);:}
+                | MENOS expresion:b  {: RESULT = new aritRESTAUnaria((Instruccion)b); :} 
+                |expresion:a  TkSimMAS  expresion:b {:RESULT = new aritSUMA((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  MENOS  expresion:b   {:RESULT = new aritRESTA((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimMULTIPLICACION expresion:b {:RESULT = new aritMULTIPLICACION((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimDIVISION   expresion:b {:RESULT = new aritDIVISION((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimMPOTENCIA   expresion:b {:RESULT = new aritPOTENCIA((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimMODULO   expresion:b {:RESULT = new aritMODULO((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  expresionRelacional  expresion :b
+                |TkSimINOT expresion:a
+                |expresion:a TkSimAND expresion:b
+                |expresion:a TkSimOR expresion:b    
+                |TkJCADENA:a TkSimMAS  expresion:b
+                |TkJIdentificador:a   TkSimMAS expresion:b
+;
+
+
+expresionRelacional ::= TkSimMAYOR
+                    | TkSimMENOR
+                    | TkSimMAYORIGUAL
+                    | TkSimMENORIGUAL
+                    | TkSimIGUALIGUAL
+                    | TkSimDIFERENTE
+;

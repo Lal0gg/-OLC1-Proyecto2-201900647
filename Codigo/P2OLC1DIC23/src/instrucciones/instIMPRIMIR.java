@@ -29,7 +29,7 @@ public class instIMPRIMIR extends Instruccion{
     private void imprimirr(Instruccion N1){
         String contenido = "";
         System.out.println(N1.valor);
-        if (N1.valor instanceof Integer){
+        if (N1.valor instanceof Object){
             contenido = String.valueOf(N1.valor);
             textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(contenido));
             

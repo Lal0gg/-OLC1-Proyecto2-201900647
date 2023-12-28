@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/JTattoo-1.6.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/quaqua-test.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/quaqua.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/jcommon-1.0.23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/java-cup-11b-runtime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/java-cup-11b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/rsyntaxtextarea-3.3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/jflex-1.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/quaqua-filechooser-only.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/classes/lib/swing-layout.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

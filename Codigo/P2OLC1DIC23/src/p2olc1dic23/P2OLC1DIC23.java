@@ -22,6 +22,8 @@ public class P2OLC1DIC23 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        //\\JercharJ =\'[a-zA-ZñÑ0-9]\'
          try {
              UIManager.setLookAndFeel(new McWinLookAndFeel());
          } catch (UnsupportedLookAndFeelException e) {

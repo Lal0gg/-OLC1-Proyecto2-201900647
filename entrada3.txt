@@ -1,0 +1,31 @@
+entero suma(entero x, entero y){
+	entero result = x+y;
+	retorno entero;
+}
+
+entero multi(entero x, entero y){
+	entero result = x*y;
+	retorno entero;
+}
+
+void metodo(){
+	entero x = 5;
+	entero y = 5;
+	entero mat[][] = nuevo entero[x][y];
+	entero i=0;
+	entero j=0;
+	para(i=0; i < x; i++){
+		para(j=0; j<y;j++){
+			mat[i][j] = multi(i,j)+suma(i,j);
+		}
+	}
+
+	para(i=0; i < x; i++){
+		para(j=0; j<y;j++){
+			imprimir(mat[i][j]);
+		}
+	}
+	
+}
+
+ejecutar metodo();

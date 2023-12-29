@@ -31,12 +31,12 @@ public class aritSUMA extends Instruccion {
             if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Integer) {
                 int suma = (int) Nodoo1.valor + (int) Nodoo2.valor;
                 System.out.println("Resultado de la suma: " + suma);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(suma));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(suma));
                 this.valor = suma;
             } else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Double) {
                 double suma = (int) Nodoo1.valor + (double) Nodoo2.valor;
                 System.out.println("Resultado de la suma: " + suma);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(suma));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(suma));
                 this.valor = suma;
             } else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Boolean) {
                 int n1 = (int) Nodoo1.valor;
@@ -46,7 +46,7 @@ public class aritSUMA extends Instruccion {
                     int sumita;
                     sumita = n1 + 1;
                     System.out.println("Resultado de la suma: " + sumita);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumita));
+                 //   textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumita));
                     this.valor = sumita;
                     
 
@@ -54,7 +54,7 @@ public class aritSUMA extends Instruccion {
                     int sum;
                     sum = n1;
                     System.out.println("Resultado de la suma: " + sum);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sum));
+               //     textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sum));
                     this.valor = sum;
                 }
             } else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Character) {
@@ -63,24 +63,24 @@ public class aritSUMA extends Instruccion {
                 System.out.println("char: " + n2);
                 int sumitaChar = n1 + (int) n2;
                 System.out.println("Resultado de la suma: " + sumitaChar);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
                 this.valor = sumitaChar;
             } else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof String) {
                 int n1 = (int) Nodoo1.valor;
                 String n2 = (String) Nodoo2.valor;
                 String sumitaChar = n1 +  n2;
                 System.out.println("Resultado de la suma: " + sumitaChar);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
                 this.valor = sumitaChar;
             } else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Double) {
                 double sumadouble = (Double) Nodoo1.valor + (double) Nodoo2.valor;
                 System.out.println("Resultado de la suma: " + sumadouble);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumadouble));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumadouble));
                 this.valor = sumadouble;
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Integer) {
                 double sumad = (Double) Nodoo1.valor + (int) Nodoo2.valor;
                 System.out.println("Resultado de la suma: " + sumad);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumad));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumad));
                 this.valor = sumad;
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Boolean) {
                 Double n1 = (Double) Nodoo1.valor;
@@ -90,14 +90,14 @@ public class aritSUMA extends Instruccion {
                     Double sumitad;
                     sumitad = n1 + 1.0;
                     System.out.println("Resultado de la suma: " + sumitad);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
                     this.valor = sumitad;
 
                 } else {
                     Double sum;
                     sum = n1 + 0;
                     System.out.println("Resultado de la suma: " + sum);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sum));
+                  //  textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sum));
                     this.valor = sum;
                 }
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Character) {
@@ -105,14 +105,14 @@ public class aritSUMA extends Instruccion {
                 Character n2 = (Character) Nodoo2.valor;
                 Double sumitaChar = n1 + (double) n2;
                 System.out.println("Resultado de la suma: " + sumitaChar);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
                 this.valor = sumitaChar;
             } else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof String) {
                 Double n1 = (Double) Nodoo1.valor;
                 String n2 = (String) Nodoo2.valor;
                 String sumitaChar = n1 + (String) n2;
                 System.out.println("Resultado de la suma: " + sumitaChar);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaChar));
                 this.valor = sumitaChar;
             } else if (Nodoo1.valor instanceof Boolean && Nodoo2.valor instanceof Integer){
                 Boolean n1= (Boolean) Nodoo1.valor;
@@ -121,13 +121,13 @@ public class aritSUMA extends Instruccion {
                     int sumitad;
                     sumitad = n2 + 1;
                     System.out.println("Resultado de la suma: " + sumitad);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
                     this.valor = sumitad;
                 }else{
                     int sumitax;
                     sumitax = n2;
                     System.out.println("Resultado de la suma: " + sumitax);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
                     this.valor = sumitax;
                 }
             }else if (Nodoo1.valor instanceof Boolean && Nodoo2.valor instanceof Double){
@@ -137,13 +137,13 @@ public class aritSUMA extends Instruccion {
                     double sumitadd;
                     sumitadd = n2 + 1.0;
                     System.out.println("Resultado de la suma: " + sumitadd);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitadd));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitadd));
                     this.valor = sumitadd;
                 }else{
                     double sumitaxd;
                     sumitaxd = n2;
                     System.out.println("Resultado de la suma: " + sumitaxd);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
                     this.valor = sumitaxd;
                 }
             } else if(Nodoo1.valor instanceof Boolean && Nodoo2.valor instanceof Boolean){
@@ -163,13 +163,13 @@ public class aritSUMA extends Instruccion {
                     String sumitad;
                     sumitad = n2 + "true";
                     System.out.println("Resultado de la suma: " + sumitad);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
                     this.valor = sumitad;
                 }else{
                     String sumitax;
                     sumitax = n2 + "false";
                     System.out.println("Resultado de la suma: " + sumitax);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
                     this.valor = sumitax;
                 }
 
@@ -181,7 +181,7 @@ public class aritSUMA extends Instruccion {
                 int nuevo1 = (int)n1;
                 int sumitax = nuevo1 + n2;
                 System.out.println("Resultado de la suma: " + sumitax);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
                 this.valor = sumitax;
             }
             else if(Nodoo1.valor instanceof Character && Nodoo2.valor instanceof Double){
@@ -190,7 +190,7 @@ public class aritSUMA extends Instruccion {
                 double nuevo1 = (double)n1;
                 double sumitadd = nuevo1 + n2;
                 System.out.println("Resultado de la suma: " + sumitadd);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitadd));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitadd));
                 this.valor = sumitadd;
 
             }else if(Nodoo1.valor instanceof Character && Nodoo2.valor instanceof Boolean){
@@ -203,7 +203,7 @@ public class aritSUMA extends Instruccion {
                 String n2 = (String) Nodoo2.valor;
                 String sumitax = n1 + n2;
                 System.out.println("Resultado de la suma: " + sumitax);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
                 this.valor = sumitax;
             }
             else if(Nodoo1.valor instanceof Character && Nodoo2.valor instanceof String) {
@@ -211,21 +211,21 @@ public class aritSUMA extends Instruccion {
                 String n2 = (String) Nodoo2.valor;
                 String sumitaxd = n1 + n2;
                 System.out.println("Resultado de la suma: " + sumitaxd);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
                 this.valor = sumitaxd;
             }else if(Nodoo1.valor instanceof String && Nodoo2.valor instanceof Integer){
                 String n1= (String) Nodoo1.valor;
                 int n2 = (int) Nodoo2.valor;
                 String sumitax = n1 + n2;
                 System.out.println("Resultado de la suma: " + sumitax);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
                 this.valor = sumitax;
             }else if(Nodoo1.valor instanceof String && Nodoo2.valor instanceof Double) {
                 String n1 = (String) Nodoo1.valor;
                 Double n2 = (Double) Nodoo2.valor;
                 String sumitaxd = n1 + n2;
                 System.out.println("Resultado de la suma: " + sumitaxd);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
                 this.valor = sumitaxd;
             }else if (Nodoo1.valor instanceof String && Nodoo2.valor instanceof Boolean){
                 String n1= (String) Nodoo1.valor;
@@ -234,13 +234,13 @@ public class aritSUMA extends Instruccion {
                     String sumitad;
                     sumitad = n1 + "true";
                     System.out.println("Resultado de la suma: " + sumitad);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
+                   // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitad));
                     this.valor = sumitad;
                 }else{
                     String sumitax;
                     sumitax = n1 + "false";
                     System.out.println("Resultado de la suma: " + sumitax);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
+                  //  textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitax));
                     this.valor = sumitax;
                 }
 
@@ -249,20 +249,22 @@ public class aritSUMA extends Instruccion {
                 Character n2 = (Character) Nodoo2.valor;
                 String sumitaxd = n1 + n2;
                 System.out.println("Resultado de la suma: " + sumitaxd);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
                 this.valor = sumitaxd;
             } else if (Nodoo1.valor instanceof String && Nodoo2.valor instanceof String) {
                 String n1 = (String) Nodoo1.valor;
                 String n2 = (String) Nodoo2.valor;
                 String sumitaxd = n1 + n2;
                 System.out.println("Resultado de la suma: " + sumitaxd);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
+               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(sumitaxd));
                 this.valor = sumitaxd;
             }else {
                 System.out.println("N1 " + Nodoo1.valor);
                 System.out.println("N2 " + Nodoo2.valor);
                 System.out.println("¡Error! Tipo de dato   incorrecto");
                 textAreaGG2.setText("¡Error! Tipo de dato   incorrecto");
+                Erroor error = new Erroor("Semantico", "¡Error! "," Tipo de dato   incorrecto",0, 0);
+                ErrorList.add(error);
             }
 
         } catch (Exception e) {

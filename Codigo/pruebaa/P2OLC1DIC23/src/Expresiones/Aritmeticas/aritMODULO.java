@@ -5,7 +5,10 @@
 package Expresiones.Aritmeticas;
 
 import Abstract.Instruccion;
+import clases.Erroor;
+
 import static GUI.GUI.textAreaGG2;
+import static func.Funcion.ErrorList;
 
 /**
  *
@@ -26,14 +29,31 @@ public class aritMODULO extends Instruccion {
         try{
             
             if(Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Integer){
-                int modulo = (int) Nodoo1.valor % (int) Nodoo2.valor;
+                double modulo = (int) Nodoo1.valor % (int) Nodoo2.valor;
                 System.out.println("Resultado del modulo : " + modulo);
-                textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(modulo));
+               // textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(modulo));
                 this.valor = modulo;
-            
-            }else{
-                System.out.println("¡Error! Tipo de dato   incorrecto");
-               textAreaGG2.setText("¡Error! Tipo de dato   incorrecto");
+            }else if(Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Double){
+                double modulo = (int) Nodoo1.valor % (double) Nodoo2.valor;
+                System.out.println("Resultado del modulo : " + modulo);
+                //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(modulo));
+                this.valor = modulo;
+            }else if(Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Double){
+                double modulo = (double) Nodoo1.valor % (double) Nodoo2.valor;
+                System.out.println("Resultado del modulo : " + modulo);
+               // textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(modulo));
+                this.valor = modulo;
+            }else if(Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Integer){
+                double modulo = (double) Nodoo1.valor % (int) Nodoo2.valor;
+                System.out.println("Resultado del modulo : " + modulo);
+                //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(modulo));
+                this.valor = modulo;
+            }
+            else{
+               System.out.println("¡Error Semantico! Tipo de dato   incorrecto, no se puede realizar la operacion");
+               textAreaGG2.setText("¡Error Semantico! Tipo de dato   incorrecto, no se puede realizar la operacion");
+               Erroor error = new Erroor("Semantico", "¡Error Semantico! Tipo de dato   incorrecto", "no se puede realizar la operacion", 0, 0);
+               ErrorList.add(error);
 
             }
         

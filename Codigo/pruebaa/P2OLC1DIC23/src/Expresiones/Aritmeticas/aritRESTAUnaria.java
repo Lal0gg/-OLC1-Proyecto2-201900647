@@ -5,7 +5,10 @@
 package Expresiones.Aritmeticas;
 
 import Abstract.Instruccion;
+import clases.Erroor;
+
 import static GUI.GUI.textAreaGG2;
+import static func.Funcion.ErrorList;
 
 public class aritRESTAUnaria extends Instruccion {
 
@@ -20,11 +23,18 @@ public class aritRESTAUnaria extends Instruccion {
             if (Nodo.valor instanceof Integer) {
                 int restaUnaria = -((int) Nodo.valor);
                 System.out.println("Resultado de la Resta Unaria: " + restaUnaria);
-                textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(restaUnaria));
+                //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(restaUnaria));
                 this.valor = restaUnaria;
-            } else {
-                System.out.println("¡Error! Tipo de dato incorrecto para resta unaria");
-                textAreaGG2.setText("¡Error! Tipo de dato incorrecto para resta unaria");
+            } else if (Nodo.valor instanceof Double) {
+                double restaUnaria = -((double) Nodo.valor);
+                System.out.println("Resultado de la Resta Unaria: " + restaUnaria);
+                //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(restaUnaria));
+                this.valor = restaUnaria;
+            }else {
+                System.out.println("¡Error Semantico! Tipo de dato   incorrecto, no se puede realizar la operacion");
+                textAreaGG2.setText("¡Error Semantico! Tipo de dato   incorrecto, no se puede realizar la operacion");
+                Erroor error = new Erroor("Semantico", "¡Error Semantico! Tipo de dato   incorrecto", "no se puede realizar la operacion", 0, 0);
+                ErrorList.add(error);
             }
         } catch (Exception e) {
             System.out.println(e);

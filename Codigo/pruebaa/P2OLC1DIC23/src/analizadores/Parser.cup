@@ -9,7 +9,7 @@ import Abstract.*;
 import instrucciones.*;
 import Expresiones.Primitivos.*;
 import Expresiones.Aritmeticas.*;
-
+import Expresiones.Relacional.*;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -137,7 +137,12 @@ expresion ::=     TkJENTERO :a    {:RESULT = new expENTERO(a); :}
                 |expresion:a  TkSimDIVISION   expresion:b {:RESULT = new aritDIVISION((Instruccion)a,(Instruccion)b);:}
                 |expresion:a  TkSimMPOTENCIA   expresion:b {:RESULT = new aritPOTENCIA((Instruccion)a,(Instruccion)b);:}
                 |expresion:a  TkSimMODULO   expresion:b {:RESULT = new aritMODULO((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  expresionRelacional  expresion :b
+                |expresion:a  TkSimMAYOR  expresion :b  {:RESULT = new relMAYORQUE((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimMENOR  expresion :b  {:RESULT = new relMENORQUE((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimMAYORIGUAL  expresion :b {:RESULT = new relMAYORIGUALQ((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimMENORIGUAL  expresion :b {:RESULT = new relMENORIGUALQ((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimIGUALIGUAL  expresion :b {:RESULT = new relIGUALIGUAL((Instruccion)a,(Instruccion)b);:}
+                |expresion:a  TkSimDIFERENTE  expresion :b {:RESULT = new relDIFERENTE((Instruccion)a,(Instruccion)b);:}
                 |TkSimINOT expresion:a
                 |expresion:a TkSimAND expresion:b
                 |expresion:a TkSimOR expresion:b    
@@ -146,10 +151,3 @@ expresion ::=     TkJENTERO :a    {:RESULT = new expENTERO(a); :}
 ;
 
 
-expresionRelacional ::= TkSimMAYOR
-                    | TkSimMENOR
-                    | TkSimMAYORIGUAL
-                    | TkSimMENORIGUAL
-                    | TkSimIGUALIGUAL
-                    | TkSimDIFERENTE
-;

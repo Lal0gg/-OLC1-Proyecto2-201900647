@@ -31,13 +31,13 @@ public class aritRESTA extends Instruccion {
             if(Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Integer){
                 int resta = (int) Nodoo1.valor - (int) Nodoo2.valor;
                 System.out.println("Resultado de la Resta: " + resta);
-                textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(resta));
+                //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(resta));
                 this.valor = resta;
             
             }else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Double) {
                 double resta = (int) Nodoo1.valor - (double) Nodoo2.valor;
                 System.out.println("Resultado de la resta: " + resta);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(resta));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(resta));
                 this.valor = resta;
             }else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Boolean) {
                 int n1 = (int) Nodoo1.valor;
@@ -47,7 +47,7 @@ public class aritRESTA extends Instruccion {
                     int restita;
                     restita = n1 - 1;
                     System.out.println("Resultado de la resta: " + restita);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restita));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restita));
                     this.valor = restita;
 
 
@@ -55,7 +55,7 @@ public class aritRESTA extends Instruccion {
                     int rest;
                     rest = n1;
                     System.out.println("Resultado de la resta: " + rest);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(rest));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(rest));
                     this.valor = rest;
                 }
             }else if (Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof Character) {
@@ -64,7 +64,7 @@ public class aritRESTA extends Instruccion {
                 System.out.println("char: " + n2);
                 int restita = n1 - (int) n2;
                 System.out.println("Resultado de la resta: " + restita);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restita));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restita));
                 this.valor = restita;
             }else if(Nodoo1.valor instanceof Integer && Nodoo2.valor instanceof String){
                 System.out.println("No se puede realizar la resta entre: " + Nodoo1.valor + " {int} y " + Nodoo2.valor+ " {string}");
@@ -75,12 +75,12 @@ public class aritRESTA extends Instruccion {
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Double) {
                 double resta = (Double) Nodoo1.valor - (double) Nodoo2.valor;
                 System.out.println("Resultado de la resta: " + resta);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(resta));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(resta));
                 this.valor = resta;
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Integer) {
                 double restax = (Double) Nodoo1.valor - (int) Nodoo2.valor;
                 System.out.println("Resultado de la resta: " + restax);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restax));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restax));
                 this.valor = restax;
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Boolean) {
                 Double n1 = (Double) Nodoo1.valor;
@@ -90,13 +90,13 @@ public class aritRESTA extends Instruccion {
                     Double restagg;
                     restagg = n1 - 1.0;
                     System.out.println("Resultado de la resta: " + restagg);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restagg));
+                   //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restagg));
                     this.valor = restagg;
                 } else {
                     Double resc;
                     resc = n1 - 0;
                     System.out.println("Resultado de la resta: " + resc);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(resc));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(resc));
                     this.valor = resc;
                 }
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof Character) {
@@ -104,7 +104,7 @@ public class aritRESTA extends Instruccion {
                 Character n2 = (Character) Nodoo2.valor;
                 Double restitachar = n1 - (double) n2;
                 System.out.println("Resultado de la resta: " + restitachar);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restitachar));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restitachar));
                 this.valor = restitachar;
             }else if (Nodoo1.valor instanceof Double && Nodoo2.valor instanceof String) {
                 System.out.println("No se puede realizar la resta entre: " + Nodoo1.valor + " {double} y " + Nodoo2.valor + " {string}");
@@ -118,13 +118,13 @@ public class aritRESTA extends Instruccion {
                     int restita;
                     restita = 1-n2 ;
                     System.out.println("Resultado de la resta: " + restita);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restita));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restita));
                     this.valor = restita;
                 }else{
                     int restx;
                     restx = 0-n2;
                     System.out.println("Resultado de la resta: " + restx);
-                    textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restx));
+                    //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restx));
                     this.valor = restx;
                 }
             }else if(Nodoo1.valor instanceof Boolean && Nodoo2.valor instanceof Boolean){
@@ -150,7 +150,7 @@ public class aritRESTA extends Instruccion {
                 int nuevo1 = (int)n1;
                 int restx = nuevo1 - n2;
                 System.out.println("Resultado de la resta: " + restx);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restx));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restx));
                 this.valor = restx;
             }else if(Nodoo1.valor instanceof Character && Nodoo2.valor instanceof Double){
                 Character n1= (Character) Nodoo1.valor;
@@ -158,7 +158,7 @@ public class aritRESTA extends Instruccion {
                 double nuevo1 = (double)n1;
                 double restxx = nuevo1 - n2;
                 System.out.println("Resultado de la resta: " + restxx);
-                textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restxx));
+                //textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(restxx));
                 this.valor = restxx;
             }else if(Nodoo1.valor instanceof Character && Nodoo2.valor instanceof Boolean){
                 System.out.println("No se puede realizar la resta entre: " + Nodoo1.valor + " {char} y " + Nodoo2.valor+ " {bool}");
@@ -203,7 +203,9 @@ public class aritRESTA extends Instruccion {
             }
             else{
                 System.out.println("¡Error! Tipo de dato   incorrecto");
-               textAreaGG2.setText("¡Error! Tipo de dato   incorrecto");
+                textAreaGG2.setText("¡Error! Tipo de dato   incorrecto");
+                Erroor error = new Erroor("Semantico", "¡Error! "," Tipo de dato   incorrecto",0, 0);
+                ErrorList.add(error);
 
             }
         

@@ -10,6 +10,7 @@ import instrucciones.*;
 import Expresiones.Primitivos.*;
 import Expresiones.Aritmeticas.*;
 import Expresiones.Relacional.*;
+import Expresiones.Logica.*;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -143,9 +144,9 @@ expresion ::=     TkJENTERO :a    {:RESULT = new expENTERO(a); :}
                 |expresion:a  TkSimMENORIGUAL  expresion :b {:RESULT = new relMENORIGUALQ((Instruccion)a,(Instruccion)b);:}
                 |expresion:a  TkSimIGUALIGUAL  expresion :b {:RESULT = new relIGUALIGUAL((Instruccion)a,(Instruccion)b);:}
                 |expresion:a  TkSimDIFERENTE  expresion :b {:RESULT = new relDIFERENTE((Instruccion)a,(Instruccion)b);:}
-                |TkSimINOT expresion:a
-                |expresion:a TkSimAND expresion:b
-                |expresion:a TkSimOR expresion:b    
+                |TkSimINOT expresion:a  {:RESULT = new logicNOT((Instruccion)a);:}
+                |expresion:a TkSimAND expresion:b  {:RESULT = new logicAND((Instruccion)a,(Instruccion)b);:}
+                |expresion:a TkSimOR expresion:b     {:RESULT = new logicOR((Instruccion)a,(Instruccion)b);:}
                 |TkJCADENA:a TkSimMAS  expresion:b
                 |TkJIdentificador:a   TkSimMAS expresion:b
 ;

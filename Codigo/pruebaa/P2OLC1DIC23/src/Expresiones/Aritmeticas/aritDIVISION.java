@@ -9,6 +9,8 @@ import clases.Erroor;
 
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
+import clases.*;
+
 
 /**
  * @author edujr
@@ -145,7 +147,7 @@ public class aritDIVISION extends Instruccion {
                 int nuevo1 = (int) n1;
                 Double  multx = (double) (nuevo1 / n2);
                 System.out.println("Resultado de la mult: " + multx);
-               // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(multx));
+                // textAreaGG2.setText(textAreaGG2.getText() + "\n" + String.valueOf(multx));
                 this.valor = multx;
             } else if (Nodoo1.valor instanceof Character && Nodoo2.valor instanceof Double) {
                 Character n1 = (Character) Nodoo1.valor;

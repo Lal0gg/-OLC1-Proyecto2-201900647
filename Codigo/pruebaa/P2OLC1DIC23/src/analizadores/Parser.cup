@@ -11,6 +11,12 @@ import Expresiones.Primitivos.*;
 import Expresiones.Aritmeticas.*;
 import Expresiones.Relacional.*;
 import Expresiones.Logica.*;
+import Expresiones.OperacionUnaria;
+import clases.TipoOperacionUnitaria;
+import clases.TipoOperacion;
+import clases.TipoDato;
+import clases.*;
+
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -26,6 +32,7 @@ parser code
         // Handle the case where s.value is null (customize this part based on your needs)
         System.err.println("Error Sintactico: Token sin valor asignado  Fila: " + s.right + "  Columna: " + s.left + ". Recuperado");
     }
+
 }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -38,6 +45,10 @@ parser code
         System.err.println("Error Sintactico: Token sin valor asignado - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado");
     }
 }
+
+ public static TablaSimbolos tablaGlobal = new TablaSimbolos();
+
+
      
 :}
 
@@ -66,7 +77,8 @@ non terminal instruccion,lista_instruccion;
 non terminal lista_metodos, lista_ejecuciones, metodo,ejecucion;
 non terminal instruccionImprimir,instruccionSi,instruccionMientras,instruccionHacerMientras;
 non terminal instruccionPara,instruccionSelectorCaso,declaracionVariable,asignacionVariable;
-non terminal instruccionCasteo,expresion,expresionRelacional,listaInicio;
+non terminal instruccionCasteo,expresion,expresionRelacional,listaInicio,tipoDatoReservado;
+non terminal instrLlaveC,listaIds,tokenId;
 
 
 //------> PRECEDENCIA
@@ -81,29 +93,22 @@ precedence right UMENOS;
 
 
 
+
 // ------------  GRAMATICA  ------------
 
 start with inicio; //Simbolo inicial
 
 
-inicio ::= lista_metodos  
+inicio ::= lista_metodos
 ;
-
-
-
 lista_metodos ::= lista_metodos metodo
                | metodo
-; 
-
-
-
-metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra
+;
+metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra{::}
             | ejecucion
 ;
-
 ejecucion::= TkResEJECUTAR  TkJIdentificador  TkSimPARENTESISAbre TkSimPARENTESISCierra  TkSimPUNTOYCOMA
 ;
-
 lista_instruccion ::= lista_instruccion instruccion
                     | instruccion
 ;
@@ -119,36 +124,83 @@ instruccion::=      instruccionImprimir
                 |   instruccionCasteo
                 |   error  TkSimPUNTOYCOMA
 ;
-
-
-instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra  TkSimPUNTOYCOMA    {:RESULT = new instIMPRIMIR((Instruccion)a).Interpretarr();:}                   
+instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra  TkSimPUNTOYCOMA    {:
+                                                                                                                    RESULT = new instIMPRIMIR((Instruccion)a).Interpretarr();
+                                                                                                                 :}
+;
+expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO); :}
+                | TkJDECIMAL :a   {:RESULT = new DataPrimitiva(a,TipoDato.DECIMAL);:}
+                | TkJErChar :a    {:RESULT = new DataPrimitiva(a,TipoDato.CARACTER); :}
+                | TkJCADENA :a    {:RESULT = new DataPrimitiva(a,TipoDato.CADENA);:}
+                | TkResTRUE :a    {:RESULT = new DataPrimitiva(a,TipoDato.BOOLEANO);:}
+                | TkResFALSE :a   {:RESULT = new DataPrimitiva(a,TipoDato.BOOLEANO);:}
+                | TkJIdentificador :a    {: RESULT = new expIDENTIFICADOR(a,tablaGlobal);:}
+                | MENOS expresion:b  {: RESULT = new OperacionUnaria((Instruccion)b,TipoOperacionUnitaria.RESTAUNARIA); :}
+                |expresion:a  TkSimMAS  expresion:b {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.SUMA);:}
+                |expresion:a  MENOS  expresion:b   {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.RESTA);:}
+                |expresion:a  TkSimMULTIPLICACION expresion:b {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.MULTIPLICACION);:}
+                |expresion:a  TkSimDIVISION   expresion:b {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.DIVISION);:}
+                |expresion:a  TkSimMPOTENCIA   expresion:b {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.POTENCIA);:}
+                |expresion:a  TkSimMODULO   expresion:b {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.MODULO);:}
+                |expresion:a  TkSimMAYOR  expresion :b  {:RESULT = new OperacionRelacional((Instruccion)a,(Instruccion)b,TipoOperacion.MAYORQ);:}
+                |expresion:a  TkSimMENOR  expresion :b  {:RESULT = new OperacionRelacional((Instruccion)a,(Instruccion)b,TipoOperacion.MENORQ);:}
+                |expresion:a  TkSimMAYORIGUAL  expresion :b {:RESULT = new OperacionRelacional((Instruccion)a,(Instruccion)b,TipoOperacion.MAYORIGUALQ);:}
+                |expresion:a  TkSimMENORIGUAL  expresion :b {:RESULT = new OperacionRelacional((Instruccion)a,(Instruccion)b,TipoOperacion.MENORIGUALQ);:}
+                |expresion:a  TkSimIGUALIGUAL  expresion :b {:RESULT = new OperacionRelacional((Instruccion)a,(Instruccion)b,TipoOperacion.IGUALIGUALQ);:}
+                |expresion:a  TkSimDIFERENTE  expresion :b {:RESULT = new OperacionRelacional((Instruccion)a,(Instruccion)b,TipoOperacion.DIFERENTEQUE);:}
+                |TkSimINOT expresion:a  {:RESULT = new OperacionUnaria((Instruccion)a,TipoOperacionUnitaria.NOT);:}
+                |expresion:a TkSimAND expresion:b  {:RESULT = new OperacionLogica((Instruccion)a,(Instruccion)b,TipoOperacion.AND);:}
+                |expresion:a TkSimOR expresion:b     {:RESULT = new OperacionLogica((Instruccion)a,(Instruccion)b,TipoOperacion.OR);:}
+                |TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra {:RESULT = a;:}
 ;
 
-expresion ::=     TkJENTERO :a    {:RESULT = new expENTERO(a); :}
-                | TkJDECIMAL :a   {:RESULT = new expDOUBLE(a);:}
-                | TkJErChar :a    {:RESULT = new expCHAR(a); :}
-                | TkJCADENA :a    {:RESULT = new expCADENA(a);:}
-                | TkResTRUE :a    {:RESULT = new expTRUE(a);:}
-                | TkResFALSE :a   {:RESULT = new expFALSE(a);:}
-                | TkJIdentificador :a    {:RESULT = new expIDENTIFICADOR(a);:}
-                | MENOS expresion:b  {: RESULT = new aritRESTAUnaria((Instruccion)b); :} 
-                |expresion:a  TkSimMAS  expresion:b {:RESULT = new aritSUMA((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  MENOS  expresion:b   {:RESULT = new aritRESTA((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMULTIPLICACION expresion:b {:RESULT = new aritMULTIPLICACION((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimDIVISION   expresion:b {:RESULT = new aritDIVISION((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMPOTENCIA   expresion:b {:RESULT = new aritPOTENCIA((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMODULO   expresion:b {:RESULT = new aritMODULO((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMAYOR  expresion :b  {:RESULT = new relMAYORQUE((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMENOR  expresion :b  {:RESULT = new relMENORQUE((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMAYORIGUAL  expresion :b {:RESULT = new relMAYORIGUALQ((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimMENORIGUAL  expresion :b {:RESULT = new relMENORIGUALQ((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimIGUALIGUAL  expresion :b {:RESULT = new relIGUALIGUAL((Instruccion)a,(Instruccion)b);:}
-                |expresion:a  TkSimDIFERENTE  expresion :b {:RESULT = new relDIFERENTE((Instruccion)a,(Instruccion)b);:}
-                |TkSimINOT expresion:a  {:RESULT = new logicNOT((Instruccion)a);:}
-                |expresion:a TkSimAND expresion:b  {:RESULT = new logicAND((Instruccion)a,(Instruccion)b);:}
-                |expresion:a TkSimOR expresion:b     {:RESULT = new logicOR((Instruccion)a,(Instruccion)b);:}
-                |TkJCADENA:a TkSimMAS  expresion:b
-                |TkJIdentificador:a   TkSimMAS expresion:b
+declaracionVariable::=      tipoDatoReservado:a TkJIdentificador:b TkSimPUNTOYCOMA {:
+                                                                                      RESULT = new instDeclararVariableSola(b,tablaGlobal,(TipoDato)a).Interpretarr();
+
+                                                                                 :}
+                        |   tipoDatoReservado:a TkJIdentificador:b TkSimIGUAL expresion:c TkSimPUNTOYCOMA {:
+                                                                                                            RESULT = new instDeclararVariable((TipoDato) a,b,(Instruccion)c ,tablaGlobal).Interpretarr();
+                                                                                                          :}
+                        | tipoDatoReservado:a  listaIds:b
+                                                                            {:
+                                                                                RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,tablaGlobal).Interpretarr();
+
+                                                                             :}
 ;
 
+listaIds ::= TkJIdentificador:a {:
+                                LinkedList<String> result = new LinkedList<>();
+                                result.add(a);
+                                RESULT = result;
+                            :}
+            | listaIds:b TkSimCOMA TkJIdentificador:a  TkSimPUNTOYCOMA{:
+                LinkedList<String> result = (LinkedList<String>) b;
+                result.add(a);
+                RESULT = result;
+            :}
+;
+
+
+
+tipoDatoReservado::= TkResENTERO {:RESULT = TipoDato.ENTERO;:}
+                    | TkResDOBLE  {:RESULT =TipoDato.DECIMAL;:}
+                    | TkResBINARIO  {:RESULT = TipoDato.BOOLEANO;:}
+                    | TkResCARACTER {:RESULT = TipoDato.CARACTER;:}
+                    | TkResCADENA  {:RESULT = TipoDato.CADENA;:}
+;
+
+
+instruccionSi::= TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion:b instrLlaveC
+;
+
+instrLlaveC::= TkSimLLAVECierra
+                | TkSimLLAVECierra TkResSINO TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra
+                | TkSimLLAVECierra TkResSINO TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion instrLlaveC
+;
+
+instruccionMientras::= TkResMIENTRAS TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion:b TkSimLLAVECierra
+;
+
+instruccionHacerMientras::= TkResHACER TkSimLLAVEAbre lista_instruccion:a TkSimLLAVECierra TkResMIENTRAS TkSimPARENTESISAbre expresion:b TkSimPARENTESISCierra TkSimPUNTOYCOMA
+;
 

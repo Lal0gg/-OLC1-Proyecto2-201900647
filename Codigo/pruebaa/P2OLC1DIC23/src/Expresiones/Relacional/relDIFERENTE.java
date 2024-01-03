@@ -2,6 +2,7 @@ package Expresiones.Relacional;
 
 import Abstract.Instruccion;
 import clases.Erroor;
+import clases.TablaSimbolos;
 
 import java.util.Objects;
 
@@ -94,7 +95,7 @@ public class relDIFERENTE extends Instruccion {
     }
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         Instruccion Nod1 = Nodo1.Interpretarr();
         Instruccion Nod2 = Nodo2.Interpretarr();
         verificarDiferente(Nod1, Nod2);

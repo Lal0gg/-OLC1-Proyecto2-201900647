@@ -2,6 +2,7 @@ package Expresiones.Logica;
 
 import Abstract.Instruccion;
 import clases.Erroor;
+import clases.TablaSimbolos;
 
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
@@ -37,8 +38,10 @@ public class logicAND extends Instruccion {
 
 
 
+
+
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         Instruccion nod1 = Nodo1.Interpretarr();
         Instruccion nod2 = Nodo2.Interpretarr();
         verificarAND(nod1, nod2);

@@ -2,6 +2,7 @@ package Expresiones.Relacional;
 
 import Abstract.Instruccion;
 import clases.Erroor;
+import clases.TablaSimbolos;
 
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
@@ -91,7 +92,7 @@ public class relMAYORQUE extends Instruccion {
     }
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ){
         Instruccion Nod1 = Nodo1.Interpretarr();
         Instruccion Nod2 = Nodo2.Interpretarr();
         verificarMayorQ(Nod1, Nod2);

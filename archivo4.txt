@@ -1,0 +1,35 @@
+void metodo1(){
+
+	entero x = 1;
+	binario bandera;
+	doble y=10.5;
+	
+	mientras(x<10){
+		y = y*2;
+		x = x+1;
+	}
+	imprimir(y);
+	
+	si(bandera == false || y > 10.5){
+		metodo2();
+		y = y/2;
+		imprimir(y);
+	}
+}
+
+void metodo2(){
+	cadena = "hola mundo";
+	caracter ca = 'x';
+	entero h = 10;
+
+	si(ca == 'x' && h <= 10){
+		imprimir(ca);
+		ca = 'a';
+	}
+	h = h-5;
+	imprimir(h);
+	imprimir(ca);
+	imprimir(cadena);
+}
+
+ejecutar metodo1();

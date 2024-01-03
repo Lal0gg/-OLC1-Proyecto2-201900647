@@ -5,6 +5,7 @@
 package Expresiones.Primitivos;
 
 import Abstract.Instruccion;
+import clases.TablaSimbolos;
 
 /**
  *
@@ -18,7 +19,7 @@ public class expCADENA extends Instruccion {
      
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         return this;
     }
     

@@ -6,6 +6,7 @@ package Expresiones.Aritmeticas;
 
 import Abstract.Instruccion;
 import clases.Erroor;
+import clases.TablaSimbolos;
 
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
@@ -43,7 +44,7 @@ public class aritRESTAUnaria extends Instruccion {
     }
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         RestandoNodoUnario(Nodo.Interpretarr());
         return this;
     }

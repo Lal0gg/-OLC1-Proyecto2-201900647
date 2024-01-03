@@ -10,63 +10,25 @@ package clases;
  */
 public class Simbolito {
 
-    private String symbolt;
-    private String valuet;
-    private String typet;
-    
- 
+    public String nombre;
+    public String tipo;
+    public Object valor;
+    public Object entorno;
 
-    public Simbolito(String symbolt, String valuet, String typet) {
-        this.symbolt = symbolt;
-        this.valuet = valuet;
-        this.typet = typet;
+    public Simbolito(String nombre, String tipo, Object valor, Object entorno) {
+        this.nombre = "";
+        this.tipo = "";
+        this.valor = null;
+        this.entorno = null;
     }
 
-    /**
-     * @return the symbolt
-     */
-    public String getSymbolt() {
-        return symbolt;
+
+    public String ToxdString(){
+        return "ID: " + nombre + ", Tipo: " + tipo + ", Valor: " + valor + ", Entorno: " + entorno;
+
     }
 
-    /**
-     * @param symbolt the symbolt to set
-     */
-    public void setSymbolt(String symbolt) {
-        this.symbolt = symbolt;
-    }
 
-    /**
-     * @return the valuet
-     */
-    public String getValuet() {
-        return valuet;
-    }
 
-    /**
-     * @param valuet the valuet to set
-     */
-    public void setValuet(String valuet) {
-        this.valuet = valuet;
-    }
-
-    /**
-     * @return the typet
-     */
-    public String getTypet() {
-        return typet;
-    }
-
-    /**
-     * @param typet the typet to set
-     */
-    public void setTypet(String typet) {
-        this.typet = typet;
-    }
-
-    @Override
-    public String toString() {
-        return "Symbol: " + symbolt + ", Value: " + valuet + ", Type: " + typet;
-    }
 
 }

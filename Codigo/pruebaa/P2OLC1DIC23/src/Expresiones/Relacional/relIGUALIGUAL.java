@@ -7,6 +7,7 @@ import java.util.Objects;
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
 import clases.Erroor;
+import clases.TablaSimbolos;
 
 public class relIGUALIGUAL  extends Instruccion {
 
@@ -98,7 +99,7 @@ public class relIGUALIGUAL  extends Instruccion {
     }
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         Instruccion Nod1 = Nodo1.Interpretarr();
         Instruccion Nod2 = Nodo2.Interpretarr();
         verificarIgualdad(Nod1,Nod2);

@@ -6,6 +6,7 @@ package Expresiones.Aritmeticas;
 
 import Abstract.Instruccion;
 import clases.Erroor;
+import clases.TablaSimbolos;
 
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
@@ -29,7 +30,7 @@ public class aritPOTENCIA extends Instruccion {
             if (base.valor instanceof Integer && exponente.valor instanceof Integer) {
                 int resultado = (int) Math.pow((int) base.valor, (int) exponente.valor);
                 System.out.println("Resultado de la Potenciación: " + resultado);
-               //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(resultado));
+                //textAreaGG2.setText(textAreaGG2.getText()+"\n"+String.valueOf(resultado));
                 this.valor = resultado;
             }else if( base.valor instanceof Double && exponente.valor instanceof Double){
                 double resultado = Math.pow((double) base.valor, (double) exponente.valor);
@@ -168,7 +169,7 @@ public class aritPOTENCIA extends Instruccion {
     }
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         Instruccion baseInterpretada = base.Interpretarr();
         Instruccion exponenteInterpretado = exponente.Interpretarr();
         PotenciandoNodos(baseInterpretada, exponenteInterpretado);

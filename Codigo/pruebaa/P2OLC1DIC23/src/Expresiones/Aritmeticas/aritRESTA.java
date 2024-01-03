@@ -8,6 +8,8 @@ import Abstract.Instruccion;
 import static GUI.GUI.textAreaGG2;
 import static func.Funcion.ErrorList;
 import clases.Erroor;
+import clases.TablaSimbolos;
+
 /**
  *
  * @author edujr
@@ -217,7 +219,7 @@ public class aritRESTA extends Instruccion {
     }
 
     @Override
-    public Instruccion Interpretarr() {
+    public Instruccion Interpretarr( ) {
         Instruccion Nodoo1 = Nodo1.Interpretarr();
         Instruccion Nodoo2 = Nodo2.Interpretarr();
         RestandoNodos(Nodoo1, Nodoo2);

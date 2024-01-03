@@ -1,0 +1,65 @@
+//este método tiene 2 parametros, uno entero y otro doble
+void metodo1(entero param1, doble param2){
+	param1 = -param1;
+
+	para(entero i = param1; i < 4; i++){
+		param2 = param2 ^ 2.0;
+	}
+	imprimir(param2);
+	
+	entero x = 10;
+
+	si(x%2==0){
+		imprimir("soy un número par");
+		metodo2(1);
+	}	
+}
+/*
+este método tiene 1 parametro entero
+*/
+void metodo2(entero param1){
+	entero x = 0;
+	si(param1 == 2){
+		x = 10;
+	}sino si(param1 == 1){
+		x = (5+2)*2;
+	}
+	
+	selector(x){
+		caso 10:
+			x = 0;
+			cortar;
+		caso 14:
+			x = 1;
+			cortar;
+		pordefecto:
+			x = 2;
+			cortar;
+	}
+	
+	selector(x){
+		caso 1:
+			x = 2;
+		caso 2:
+			x = x*2;
+			cortar;
+		pordefecto:
+			x=0;
+			cortar;
+	}
+
+	selector(x){
+		caso 1:
+			x = 0;
+			cortar;
+		caso 2: 
+			x = 1;
+			cortar;
+		pordefecto
+			imprimir(x);
+			imprimir("entro al pordefecto");
+			cortar;
+	}
+}
+
+ejecutar metodo1(1, 2.1);

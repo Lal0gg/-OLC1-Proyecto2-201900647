@@ -4,6 +4,8 @@
  */
 package Abstract;
 
+import clases.TablaSimbolos;
+
 /**
  *
  * @author edujr
@@ -11,10 +13,8 @@ package Abstract;
 public abstract class Instruccion{
     
    public Object valor;
-   // int linea columna
-   // error tipo semantico
-    
+
    public abstract Instruccion Interpretarr();
-   
+
 }
 

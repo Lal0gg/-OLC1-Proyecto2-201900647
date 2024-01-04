@@ -253,3 +253,9 @@ instIncremento::= TkJIdentificador:a TkSimINCREMENTO TkSimPUNTOYCOMA
                                                                                                      RESULT = new instIncremento((String)a,Funcion.tablaGlobal).Interpretarr();
                                                                                                 :}
 ;
+
+instrOperadorTernario::= expresion:a TkSimInterrogacion expresion:b TkSimDOSPUNTOS expresion:c
+                                                                                                {:
+                                                                                                     RESULT = new OperadorTernario((Instruccion)a, (Instruccion)b, (Instruccion)c).Interpretarr();
+                                                                                                :}
+;

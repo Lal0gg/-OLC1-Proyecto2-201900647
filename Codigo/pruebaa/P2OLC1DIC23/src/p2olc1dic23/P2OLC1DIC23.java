@@ -4,6 +4,8 @@
  */
 package p2olc1dic23;
 
+import Abstract.Ast;
+import Abstract.Nodo;
 import GUI.GUI;
 import com.jtattoo.plaf.mcwin.McWinLookAndFeel;
 import static func.Funcion.TokenList;
@@ -36,6 +38,24 @@ public class P2OLC1DIC23 {
         nuevaGUI.setVisible(true);
 
         analizadorJavaN("src/analizadores/", "Lexer.jflex", "Parser.cup");
+
+
+        /*Nodo raiz = new Nodo("raiz", "d", 0, 0);
+        Nodo hijo1 = new Nodo("hijo1", "d", 0, 0);
+        Nodo hijo2 = new Nodo("hijo2", "ff", 0, 0);
+        Nodo hijo3 = new Nodo("hijo3", "ff", 0, 0);
+        Nodo hijo4 = new Nodo("hijo4", "ffff", 0, 0);
+        Nodo hijo5 = new Nodo("hijo5", "f", 0, 0);
+        raiz.AgregarHijo(hijo1);
+        raiz.AgregarHijo(hijo2);
+        raiz.AgregarHijo(hijo3);
+        raiz.AgregarHijo(hijo4);
+        raiz.AgregarHijo(hijo5);
+
+
+        Ast ast = new Ast(raiz);
+        ast.GrficarAst();*/
+
 
     }
 

@@ -8,10 +8,9 @@ package func;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import java.awt.List;
-import clases.Token;
-import clases.Erroor;
-import clases.Simbolito;
-import clases.VarGlobales;
+
+import clases.*;
+
 import java.util.LinkedList;
 
 
@@ -26,7 +25,8 @@ public class Funcion {
     public static LinkedList<Token> TokenList = new LinkedList<>();
     
      //en uso
-    public static LinkedList<Erroor> ErrorList = new LinkedList<>();                         
+    public static LinkedList<Erroor> ErrorList = new LinkedList<>();
+    public static TablaSimbolos tablaGlobal = new TablaSimbolos();
 
 
     

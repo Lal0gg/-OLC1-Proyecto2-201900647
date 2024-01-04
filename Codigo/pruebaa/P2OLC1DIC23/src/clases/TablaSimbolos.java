@@ -11,7 +11,6 @@ public class TablaSimbolos {
 
     public HashMap<String, Simbolito> actual;
 
-    private HashMap<String, Metodo> metodos;
 
     public TablaSimbolos() {
         this.anterior = null;

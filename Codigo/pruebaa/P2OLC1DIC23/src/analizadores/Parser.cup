@@ -47,7 +47,7 @@ parser code
     }
 }
 
- public static TablaSimbolos tablaGlobal = new TablaSimbolos();
+
 
 
      
@@ -106,12 +106,13 @@ inicio ::= lista_metodos
 lista_metodos ::= lista_metodos metodo
                | metodo
 ;
+
 metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra BloqueSentencias
             | ejecucion
 ;
 
 
-BloqueSentencias::= TkSimLLAVEAbre lista_instruccion:a  TkSimLLAVECierra{:  RESULT = new BloqueSent((Sentencias) a).Interpretarr();:}
+BloqueSentencias::= TkSimLLAVEAbre lista_instruccion:a  TkSimLLAVECierra{:  RESULT = new BloqueSent((ArrayList<Instruccion>) a).Interpretarr();:}
 ;
 
 ejecucion::= TkResEJECUTAR  TkJIdentificador  TkSimPARENTESISAbre TkSimPARENTESISCierra  TkSimPUNTOYCOMA
@@ -119,14 +120,14 @@ ejecucion::= TkResEJECUTAR  TkJIdentificador  TkSimPARENTESISAbre TkSimPARENTESI
 
 
 lista_instruccion ::= lista_instruccion:a instruccion:b {:
-                                                            ((Sentencias) a).AgregarSentencia((Instruccion) b);
+                                                            ((ArrayList<Instruccion>) a).add((Instruccion) b);
                                                              RESULT = a;
                                                         :}
                     | instruccion:a
                                     {:
-                                        Sentencias nueva = new Sentencias();
-                                        ((Sentencias)nueva).AgregarSentencia((Instruccion) a);
-                                        RESULT = nueva;
+                                        ArrayList<Instruccion> nuevaLista = new ArrayList<>();
+                                            nuevaLista.add((Instruccion) a);
+                                            RESULT = nuevaLista;
                                     :}
 ;
 
@@ -143,11 +144,10 @@ instruccion::=      instruccionImprimir:a {:RESULT= a;:}
                 |   instruccionCasteo:a {:RESULT= a;:}
                 |   instDecreIncre :a {:RESULT= a;:}
                 |   instrOperadorTernario:a {:RESULT= a;:}
-                |
                 |   error  TkSimPUNTOYCOMA
 ;
 instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra  TkSimPUNTOYCOMA    {:
-                                                                                                                    RESULT = new instIMPRIMIR((Instruccion)a);
+                                                                                                                    RESULT = new instIMPRIMIR((Instruccion)a).Interpretarr();
                                                                                                                  :}
 ;
 expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO); :}
@@ -156,7 +156,7 @@ expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO
                 | TkJCADENA :a    {:RESULT = new DataPrimitiva(a,TipoDato.CADENA);:}
                 | TkResTRUE :a    {:RESULT = new DataPrimitiva(a,TipoDato.BOOLEANO);:}
                 | TkResFALSE :a   {:RESULT = new DataPrimitiva(a,TipoDato.BOOLEANO);:}
-                | TkJIdentificador :a    {: RESULT = new expIDENTIFICADOR(a,tablaGlobal);:}
+                | TkJIdentificador :a    {: RESULT = new expIDENTIFICADOR(a,Funcion.tablaGlobal);:}
                 | MENOS expresion:b  {: RESULT = new OperacionUnaria((Instruccion)b,TipoOperacionUnitaria.RESTAUNARIA); :}
                 |expresion:a  TkSimMAS  expresion:b {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.SUMA);:}
                 |expresion:a  MENOS  expresion:b   {:RESULT = new OperacionesAritmeticas((Instruccion)a,(Instruccion)b,TipoOperacion.RESTA);:}
@@ -178,15 +178,15 @@ expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO
 ;
 // entero a;
 declaracionVariable::=  tipoDatoReservado:a  listaIds:b TkSimPUNTOYCOMA  {:
-                                                                            RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,tablaGlobal);
+                                                                            RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,Funcion.tablaGlobal);
                                                                          :}
                             | tipoDatoReservado:a listaIds:b TkSimIGUAL expresion:c TkSimPUNTOYCOMA {:
-                                                                                                    RESULT = new instDeclararVariable((TipoDato) a,(LinkedList<String>)b,(Instruccion)c ,tablaGlobal);
+                                                                                                    RESULT = new instDeclararVariable((TipoDato) a,(LinkedList<String>)b,(Instruccion)c ,Funcion.tablaGlobal);
                                                                                                      :}
 ;
 
 asignacionVariable::= listaIds:a TkSimIGUAL expresion:b TkSimPUNTOYCOMA {:
-                                                                          RESULT = new instAsignarVariable((LinkedList<String>)a,(Instruccion)b,tablaGlobal);
+                                                                          RESULT = new instAsignarVariable((LinkedList<String>)a,(Instruccion)b,Funcion.tablaGlobal);
                                                                          :}
 ;
 
@@ -213,11 +213,11 @@ tipoDatoReservado::= TkResENTERO {:RESULT = TipoDato.ENTERO;:}
 
 instruccionSi::= TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra BloqueSentencias:b
                                                                                                 {:
-                                                                                                     RESULT = new instSI((Instruccion)a, (Instruccion)b);
+                                                                                                     RESULT = new instSI((Instruccion)a, (Instruccion)b).Interpretarr();
                                                                                                 :}
                  |TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra BloqueSentencias:b TkResSINO BloqueSentencias:c
                                                                                                 {:
-                                                                                                     RESULT = new instSI((Instruccion)a, (Instruccion)b, (Instruccion)c);
+                                                                                                     RESULT = new instSI((Instruccion)a, (Instruccion)b, (Instruccion)c).Interpretarr();
                                                                                                 :}
 
 ;
@@ -226,14 +226,14 @@ instruccionSi::= TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra B
 
 instruccionMientras::= TkResMIENTRAS TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra BloqueSentencias:b
                                                                                                 {:
-                                                                                                     RESULT = new instMientras((Instruccion)a, (Instruccion)b);
+                                                                                                     RESULT = new instMientras((Instruccion)a, (Instruccion)b).Interpretarr();
                                                                                                 :}
 
 ;
 
 instruccionHacerMientras::= TkResHACER TkSimLLAVEAbre lista_instruccion:a TkSimLLAVECierra TkResMIENTRAS TkSimPARENTESISAbre expresion:b TkSimPARENTESISCierra TkSimPUNTOYCOMA
                                                                                                 {:
-                                                                                                     RESULT = new instHacerMientras((Instruccion)a, (Instruccion)b);
+                                                                                                     RESULT = new instHacerMientras((Instruccion)a, (Instruccion)b).Interpretarr();
                                                                                                 :}
 ;
 
@@ -244,12 +244,12 @@ instDecreIncre::=   instDecremento:a {:RESULT= a;:}
 
 instDecremento::= TkJIdentificador:a TkSimDECREMENTO TkSimPUNTOYCOMA
                                                                                                 {:
-                                                                                                     RESULT = new instDecremento((String)a,tablaGlobal);
+                                                                                                     RESULT = new instDecremento((String)a,Funcion.tablaGlobal).Interpretarr();
                                                                                                 :}
 ;
 
 instIncremento::= TkJIdentificador:a TkSimINCREMENTO TkSimPUNTOYCOMA
                                                                                                 {:
-                                                                                                     RESULT = new instIncremento((String)a,tablaGlobal);
+                                                                                                     RESULT = new instIncremento((String)a,Funcion.tablaGlobal).Interpretarr();
                                                                                                 :}
 ;

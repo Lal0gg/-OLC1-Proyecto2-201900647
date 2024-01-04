@@ -1,0 +1,28 @@
+digraph ast{
+
+node0[label = "raiz"];
+node0 -> node00
+node00[label = "hijo1"];
+node00c[label = "d"];
+node00 -> node00c
+node0 -> node01
+node01[label = "hijo2"];
+node01c[label = "ff"];
+node01 -> node01c
+node0 -> node02
+node02[label = "hijo3"];
+node02c[label = "ff"];
+node02 -> node02c
+node0 -> node03
+node03[label = "hijo4"];
+node03c[label = "ffff"];
+node03 -> node03c
+node0 -> node04
+node04[label = "hijo5"];
+node04c[label = "f"];
+node04 -> node04c
+node0c[label = "d"];
+node0 -> node0c
+
+
+}

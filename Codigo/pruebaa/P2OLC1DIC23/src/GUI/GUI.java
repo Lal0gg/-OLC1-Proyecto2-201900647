@@ -22,6 +22,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Reportes.ReporteTablaSimbolos;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -37,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.LinkedList;
 import static p2olc1dic23.P2OLC1DIC23.analizarJAVAN;
+import static  func.Funcion.tablaGlobal;
 
 
 
@@ -445,6 +448,9 @@ public class GUI extends javax.swing.JFrame {
                 System.out.print(" Línea: " + token.getLinea());
                 System.out.println(" Columna: " + token.getColumna());
             }
+            ReporteTablaSimbolos ReporteTS1 = new ReporteTablaSimbolos();
+            ReporteTS1.ReporteTS(tablaGlobal);
+
         }
 
 

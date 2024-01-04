@@ -11,9 +11,12 @@ public class TablaSimbolos {
 
     public HashMap<String, Simbolito> actual;
 
+    private HashMap<String, Metodo> metodos;
+
     public TablaSimbolos() {
         this.anterior = null;
         this.actual = new HashMap<String,Simbolito>();
+
     }
 
     public TablaSimbolos getAnterior() {
@@ -93,3 +96,7 @@ public class TablaSimbolos {
         System.out.println("===========================");
     }
     }
+
+    // =================================================== MANEJO METODOS ===================================================
+
+

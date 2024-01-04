@@ -69,7 +69,7 @@ terminal String TkSimIGUALIGUAL,TkSimDIFERENTE,TkSimMENOR,TkSimMENORIGUAL,TkSimM
 terminal String TkSimOR,TkSimAND,TkSimINOT;
 terminal String TkSimPUNTOYCOMA,TkSimDOSPUNTOS,TkSimPUNTO,TkSimCOMA,TkSimIGUAL;
 terminal String TkJENTERO,TkJDECIMAL,TkJCADENA,TkJErChar,TkJIdentificador;
-terminal String TkResSELECTOR,TkResCASO,TkResTIPODE,TkResTRUE,TkResFALSE,UMENOS,TkSimINCREMENTO,TkSimDECREMENTO;
+terminal String TkResSELECTOR,TkResCASO,TkResTIPODE,TkResTRUE,TkResFALSE,UMENOS,TkSimINCREMENTO,TkSimDECREMENTO,TkSimInterrogacion;
 
 
 //------> Declaración de no terminales
@@ -79,7 +79,7 @@ non terminal lista_metodos, lista_ejecuciones, metodo,ejecucion;
 non terminal instruccionImprimir,instruccionSi,instruccionMientras,instruccionHacerMientras;
 non terminal instruccionPara,instruccionSelectorCaso,declaracionVariable,asignacionVariable;
 non terminal instruccionCasteo,expresion,expresionRelacional,listaInicio,tipoDatoReservado;
-non terminal instrLlaveC,listaIds,tokenId,BloqueSentencias;
+non terminal instrLlaveC,listaIds,tokenId,BloqueSentencias,instDecremento,instIncremento,instDecreIncre,instrunofor,instrOperadorTernario;
 
 
 //------> PRECEDENCIA
@@ -91,7 +91,7 @@ precedence left TkSimMAS,MENOS;
 precedence left TkSimMULTIPLICACION, TkSimDIVISION;
 precedence left TkSimMPOTENCIA,TkSimMODULO;
 precedence right UMENOS;
-
+precedence right TkSimINCREMENTO, TkSimDECREMENTO;
 
 
 
@@ -106,7 +106,7 @@ inicio ::= lista_metodos
 lista_metodos ::= lista_metodos metodo
                | metodo
 ;
-metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra BloqueSentencias {::}
+metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra BloqueSentencias
             | ejecucion
 ;
 
@@ -133,14 +133,17 @@ lista_instruccion ::= lista_instruccion:a instruccion:b {:
 instruccion::=      instruccionImprimir:a {:RESULT= a;:}
                 |   instruccionSi:a {:RESULT= a;:}
                 |   instruccionMientras:a {:RESULT= a;:}
-                |   instruccionHacerMientras
-                |   instruccionPara
-                |   instruccionSelectorCaso
+                |   instruccionHacerMientras :a {:RESULT= a;:}
+                |   instruccionPara:a {:RESULT= a;:}
+                |   instruccionSelectorCaso :a {:RESULT= a;:}
                 |   declaracionVariable:a {:RESULT= a;:}
                 |   asignacionVariable:a {:RESULT= a;:}
                 |   TkResCONTINUAR TkSimPUNTOYCOMA {:RESULT= new CONTINUAR();:}
                 |   TkResCORTAR TkSimPUNTOYCOMA {:RESULT= new CORTAR();:}
-                |   instruccionCasteo
+                |   instruccionCasteo:a {:RESULT= a;:}
+                |   instDecreIncre :a {:RESULT= a;:}
+                |   instrOperadorTernario:a {:RESULT= a;:}
+                |
                 |   error  TkSimPUNTOYCOMA
 ;
 instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra  TkSimPUNTOYCOMA    {:
@@ -171,6 +174,7 @@ expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO
                 |expresion:a TkSimAND expresion:b  {:RESULT = new OperacionLogica((Instruccion)a,(Instruccion)b,TipoOperacion.AND);:}
                 |expresion:a TkSimOR expresion:b     {:RESULT = new OperacionLogica((Instruccion)a,(Instruccion)b,TipoOperacion.OR);:}
                 |TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra {:RESULT = a;:}
+
 ;
 // entero a;
 declaracionVariable::=  tipoDatoReservado:a  listaIds:b TkSimPUNTOYCOMA  {:
@@ -227,8 +231,25 @@ instruccionMientras::= TkResMIENTRAS TkSimPARENTESISAbre expresion:a TkSimPARENT
 
 ;
 
-/*
 instruccionHacerMientras::= TkResHACER TkSimLLAVEAbre lista_instruccion:a TkSimLLAVECierra TkResMIENTRAS TkSimPARENTESISAbre expresion:b TkSimPARENTESISCierra TkSimPUNTOYCOMA
+                                                                                                {:
+                                                                                                     RESULT = new instHacerMientras((Instruccion)a, (Instruccion)b);
+                                                                                                :}
 ;
 
-*/
+
+instDecreIncre::=   instDecremento:a {:RESULT= a;:}
+                    | instIncremento:a {:RESULT= a;:}
+;
+
+instDecremento::= TkJIdentificador:a TkSimDECREMENTO TkSimPUNTOYCOMA
+                                                                                                {:
+                                                                                                     RESULT = new instDecremento((String)a,tablaGlobal);
+                                                                                                :}
+;
+
+instIncremento::= TkJIdentificador:a TkSimINCREMENTO TkSimPUNTOYCOMA
+                                                                                                {:
+                                                                                                     RESULT = new instIncremento((String)a,tablaGlobal);
+                                                                                                :}
+;

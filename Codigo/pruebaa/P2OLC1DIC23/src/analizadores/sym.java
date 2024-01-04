@@ -14,6 +14,7 @@ public class sym {
   public static final int TkSimMENORIGUAL = 37;
   public static final int TkSimPARENTESISCierra = 28;
   public static final int TkSimCorchetesArreglo = 33;
+  public static final int TkSimInterrogacion = 61;
   public static final int TkResREDONDEO = 18;
   public static final int TkResTIPODE = 55;
   public static final int TkSimPARENTESISAbre = 27;
@@ -130,7 +131,8 @@ public class sym {
   "TkResFALSE",
   "UMENOS",
   "TkSimINCREMENTO",
-  "TkSimDECREMENTO"
+  "TkSimDECREMENTO",
+  "TkSimInterrogacion"
   };
 }
 

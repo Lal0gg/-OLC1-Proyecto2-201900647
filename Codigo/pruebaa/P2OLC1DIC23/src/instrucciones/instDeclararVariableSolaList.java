@@ -37,6 +37,8 @@ public class instDeclararVariableSolaList extends Instruccion {
                         // Agregar la variable a la tabla de símbolos
                         String nuevotipo= simbolito.Casteartipo(tipo);
                         simbolito.tipo = nuevotipo;
+                        int nuevoValor = 0;
+                        simbolito.valor = nuevoValor;
                         System.out.println("Agregando variable a la tabla de símbolos");
                         entorno.Agregarsimbolo(id1, simbolito);
                         entorno.ImprimirTabla();
@@ -54,6 +56,8 @@ public class instDeclararVariableSolaList extends Instruccion {
                         // Agregar la variable a la tabla de símbolos
                         String nuevotipo= simbolito.Casteartipo(tipo);
                         simbolito.tipo = nuevotipo;
+                        double nuevoValor = 0.0;
+                        simbolito.valor = nuevoValor;
                         System.out.println("Agregando variable a la tabla de símbolos");
                         entorno.Agregarsimbolo(id1, simbolito);
                         entorno.ImprimirTabla();
@@ -70,6 +74,8 @@ public class instDeclararVariableSolaList extends Instruccion {
                         // Agregar la variable a la tabla de símbolos
                         String nuevotipo= simbolito.Casteartipo(tipo);
                         simbolito.tipo = nuevotipo;
+                        String nuevoValor= "";
+                        simbolito.valor = nuevoValor;
                         System.out.println("Agregando variable a la tabla de símbolos");
                         entorno.Agregarsimbolo(id1, simbolito);
                         entorno.ImprimirTabla();
@@ -86,6 +92,8 @@ public class instDeclararVariableSolaList extends Instruccion {
                         // Agregar la variable a la tabla de símbolos
                         String nuevotipo= simbolito.Casteartipo(tipo);
                         simbolito.tipo = nuevotipo;
+                        boolean valorrr = false;
+                        simbolito.valor = valorrr;
                         System.out.println("Agregando variable a la tabla de símbolos");
                         entorno.Agregarsimbolo(id1, simbolito);
                         entorno.ImprimirTabla();

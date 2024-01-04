@@ -34,7 +34,7 @@ public class instDeclararVariableSola extends Instruccion {
                 ErrorList.add(error);
             } else {
                 if (tipo == TipoDato.ENTERO) {
-                    Simbolito simbolito = new Simbolito(id, tipo.toString(), null , entorno);
+                    Simbolito simbolito = new Simbolito(id, tipo.toString(), 0 , entorno);
                     if (valor != null) {
                         // Si hay un valor asignado, evaluar la expresión y asignar el valor a la variable
                         System.out.println("Asignando valor a variable: " + id);
@@ -47,7 +47,7 @@ public class instDeclararVariableSola extends Instruccion {
                     entorno.ImprimirTabla();
 
                 } else if (tipo == TipoDato.DECIMAL) {
-                    Simbolito simbolito = new Simbolito(id, tipo.toString(), null, entorno);
+                    Simbolito simbolito = new Simbolito(id, tipo.toString(), 0.0, entorno);
                     if (valor != null) {
                         // Si hay un valor asignado, evaluar la expresión y asignar el valor a la variable
                         System.out.println("Asignando valor a variable: " + id);
@@ -60,7 +60,7 @@ public class instDeclararVariableSola extends Instruccion {
                     entorno.ImprimirTabla();
 
                 } else if (tipo == TipoDato.CADENA) {
-                    Simbolito simbolito = new Simbolito(id, tipo.toString(), null, entorno);
+                    Simbolito simbolito = new Simbolito(id, tipo.toString(), "", entorno);
                     if (valor != null) {
                         // Si hay un valor asignado, evaluar la expresión y asignar el valor a la variable
                         System.out.println("Asignando valor a variable: " + id);
@@ -73,7 +73,7 @@ public class instDeclararVariableSola extends Instruccion {
                     entorno.ImprimirTabla();
 
                 } else if (tipo == TipoDato.BOOLEANO) {
-                    Simbolito simbolito = new Simbolito(id, tipo.toString(), null, entorno);
+                    Simbolito simbolito = new Simbolito(id, tipo.toString(), false, entorno);
                     if (valor != null) {
                         // Si hay un valor asignado, evaluar la expresión y asignar el valor a la variable
                         System.out.println("Asignando valor a variable: " + id);

@@ -16,6 +16,7 @@ import clases.TipoOperacionUnitaria;
 import clases.TipoOperacion;
 import clases.TipoDato;
 import clases.*;
+import java.util.ArrayList;
 
 
 //------> Codigo para el parser
@@ -78,7 +79,7 @@ non terminal lista_metodos, lista_ejecuciones, metodo,ejecucion;
 non terminal instruccionImprimir,instruccionSi,instruccionMientras,instruccionHacerMientras;
 non terminal instruccionPara,instruccionSelectorCaso,declaracionVariable,asignacionVariable;
 non terminal instruccionCasteo,expresion,expresionRelacional,listaInicio,tipoDatoReservado;
-non terminal instrLlaveC,listaIds,tokenId;
+non terminal instrLlaveC,listaIds,tokenId,BloqueSentencias;
 
 
 //------> PRECEDENCIA
@@ -105,28 +106,45 @@ inicio ::= lista_metodos
 lista_metodos ::= lista_metodos metodo
                | metodo
 ;
-metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra{::}
+metodo ::= TkResVOID TkJIdentificador TkSimPARENTESISAbre TkSimPARENTESISCierra BloqueSentencias {::}
             | ejecucion
 ;
-ejecucion::= TkResEJECUTAR  TkJIdentificador  TkSimPARENTESISAbre TkSimPARENTESISCierra  TkSimPUNTOYCOMA
-;
-lista_instruccion ::= lista_instruccion instruccion
-                    | instruccion
+
+
+BloqueSentencias::= TkSimLLAVEAbre lista_instruccion:a  TkSimLLAVECierra{:  RESULT = new BloqueSent((Sentencias) a).Interpretarr();:}
 ;
 
-instruccion::=      instruccionImprimir
-                |   instruccionSi
-                |   instruccionMientras
+ejecucion::= TkResEJECUTAR  TkJIdentificador  TkSimPARENTESISAbre TkSimPARENTESISCierra  TkSimPUNTOYCOMA
+;
+
+
+lista_instruccion ::= lista_instruccion:a instruccion:b {:
+                                                            ((Sentencias) a).AgregarSentencia((Instruccion) b);
+                                                             RESULT = a;
+                                                        :}
+                    | instruccion:a
+                                    {:
+                                        Sentencias nueva = new Sentencias();
+                                        ((Sentencias)nueva).AgregarSentencia((Instruccion) a);
+                                        RESULT = nueva;
+                                    :}
+;
+
+instruccion::=      instruccionImprimir:a {:RESULT= a;:}
+                |   instruccionSi:a {:RESULT= a;:}
+                |   instruccionMientras:a {:RESULT= a;:}
                 |   instruccionHacerMientras
                 |   instruccionPara
                 |   instruccionSelectorCaso
-                |   declaracionVariable
-                |   asignacionVariable
+                |   declaracionVariable:a {:RESULT= a;:}
+                |   asignacionVariable:a {:RESULT= a;:}
+                |   TkResCONTINUAR TkSimPUNTOYCOMA {:RESULT= new CONTINUAR();:}
+                |   TkResCORTAR TkSimPUNTOYCOMA {:RESULT= new CORTAR();:}
                 |   instruccionCasteo
                 |   error  TkSimPUNTOYCOMA
 ;
 instruccionImprimir::=  TkResIMPRIMIR TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra  TkSimPUNTOYCOMA    {:
-                                                                                                                    RESULT = new instIMPRIMIR((Instruccion)a).Interpretarr();
+                                                                                                                    RESULT = new instIMPRIMIR((Instruccion)a);
                                                                                                                  :}
 ;
 expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO); :}
@@ -156,15 +174,15 @@ expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO
 ;
 // entero a;
 declaracionVariable::=  tipoDatoReservado:a  listaIds:b TkSimPUNTOYCOMA  {:
-                                                                            RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,tablaGlobal).Interpretarr();
+                                                                            RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,tablaGlobal);
                                                                          :}
                             | tipoDatoReservado:a listaIds:b TkSimIGUAL expresion:c TkSimPUNTOYCOMA {:
-                                                                                                    RESULT = new instDeclararVariable((TipoDato) a,(LinkedList<String>)b,(Instruccion)c ,tablaGlobal).Interpretarr();
+                                                                                                    RESULT = new instDeclararVariable((TipoDato) a,(LinkedList<String>)b,(Instruccion)c ,tablaGlobal);
                                                                                                      :}
 ;
 
 asignacionVariable::= listaIds:a TkSimIGUAL expresion:b TkSimPUNTOYCOMA {:
-                                                                          RESULT = new instAsignarVariable((LinkedList<String>)a,(Instruccion)b,tablaGlobal).Interpretarr();
+                                                                          RESULT = new instAsignarVariable((LinkedList<String>)a,(Instruccion)b,tablaGlobal);
                                                                          :}
 ;
 
@@ -189,17 +207,28 @@ tipoDatoReservado::= TkResENTERO {:RESULT = TipoDato.ENTERO;:}
 ;
 
 
-instruccionSi::= TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion:b instrLlaveC
+instruccionSi::= TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra BloqueSentencias:b
+                                                                                                {:
+                                                                                                     RESULT = new instSI((Instruccion)a, (Instruccion)b);
+                                                                                                :}
+                 |TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra BloqueSentencias:b TkResSINO BloqueSentencias:c
+                                                                                                {:
+                                                                                                     RESULT = new instSI((Instruccion)a, (Instruccion)b, (Instruccion)c);
+                                                                                                :}
+
 ;
 
-instrLlaveC::= TkSimLLAVECierra
-                | TkSimLLAVECierra TkResSINO TkSimLLAVEAbre lista_instruccion TkSimLLAVECierra
-                | TkSimLLAVECierra TkResSINO TkResSI TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion instrLlaveC
+
+
+instruccionMientras::= TkResMIENTRAS TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra BloqueSentencias:b
+                                                                                                {:
+                                                                                                     RESULT = new instMientras((Instruccion)a, (Instruccion)b);
+                                                                                                :}
+
 ;
 
-instruccionMientras::= TkResMIENTRAS TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra TkSimLLAVEAbre lista_instruccion:b TkSimLLAVECierra
-;
-
+/*
 instruccionHacerMientras::= TkResHACER TkSimLLAVEAbre lista_instruccion:a TkSimLLAVECierra TkResMIENTRAS TkSimPARENTESISAbre expresion:b TkSimPARENTESISCierra TkSimPUNTOYCOMA
 ;
 
+*/

@@ -971,7 +971,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 70: break;
           case 9:
-            { Token NuevoToken = new Token("TkSimCOMA",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimPUNTO> Tk: " + yytext());return new Symbol(sym.TkSimPUNTO, yycolumn, yyline, yytext());
+            { Token NuevoToken = new Token("TkSimCOMA",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimCOMA> Tk: " + yytext());return new Symbol(sym.TkSimCOMA, yycolumn, yyline, yytext());
             }
           // fall through
           case 71: break;

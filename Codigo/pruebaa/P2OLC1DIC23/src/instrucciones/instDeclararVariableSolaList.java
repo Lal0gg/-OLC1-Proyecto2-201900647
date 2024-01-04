@@ -25,9 +25,7 @@ public class instDeclararVariableSolaList extends Instruccion {
     }
 
     private void DeclararVariableLista(){
-
         try {
-
             if (tipo == TipoDato.ENTERO) {
                 for (String id1 : id) {
                     boolean existe = entorno.ExisteSimbolo(id1);
@@ -37,13 +35,80 @@ public class instDeclararVariableSolaList extends Instruccion {
                         Simbolito simbolito = new Simbolito(id1, tipo.toString(), null, entorno);
                         System.out.println("Declarando variable: " + id1 + " de tipo: " + tipo.toString());
                         // Agregar la variable a la tabla de símbolos
+                        String nuevotipo= simbolito.Casteartipo(tipo);
+                        simbolito.tipo = nuevotipo;
                         System.out.println("Agregando variable a la tabla de símbolos");
                         entorno.Agregarsimbolo(id1, simbolito);
                         entorno.ImprimirTabla();
                     }
                 }
 
-            }else{
+            }else if (tipo == TipoDato.DECIMAL) {
+                for (String id1 : id) {
+                    boolean existe = entorno.ExisteSimbolo(id1);
+                    if (existe) {
+                        System.out.println("ERROR Semantico: Variable " + id1 + " ya declarada");
+                    } else {
+                        Simbolito simbolito = new Simbolito(id1, tipo.toString(), null, entorno);
+                        System.out.println("Declarando variable: " + id1 + " de tipo: " + tipo.toString());
+                        // Agregar la variable a la tabla de símbolos
+                        String nuevotipo= simbolito.Casteartipo(tipo);
+                        simbolito.tipo = nuevotipo;
+                        System.out.println("Agregando variable a la tabla de símbolos");
+                        entorno.Agregarsimbolo(id1, simbolito);
+                        entorno.ImprimirTabla();
+                    }
+                }
+            } else if (tipo == TipoDato.CADENA) {
+                for (String id1 : id) {
+                    boolean existe = entorno.ExisteSimbolo(id1);
+                    if (existe) {
+                        System.out.println("ERROR Semantico: Variable " + id1 + " ya declarada");
+                    } else {
+                        Simbolito simbolito = new Simbolito(id1, tipo.toString(), null, entorno);
+                        System.out.println("Declarando variable: " + id1 + " de tipo: " + tipo.toString());
+                        // Agregar la variable a la tabla de símbolos
+                        String nuevotipo= simbolito.Casteartipo(tipo);
+                        simbolito.tipo = nuevotipo;
+                        System.out.println("Agregando variable a la tabla de símbolos");
+                        entorno.Agregarsimbolo(id1, simbolito);
+                        entorno.ImprimirTabla();
+                    }
+                }
+            } else if (tipo == TipoDato.BOOLEANO) {
+                for (String id1 : id) {
+                    boolean existe = entorno.ExisteSimbolo(id1);
+                    if (existe) {
+                        System.out.println("ERROR Semantico: Variable " + id1 + " ya declarada");
+                    } else {
+                        Simbolito simbolito = new Simbolito(id1, tipo.toString(), null, entorno);
+                        System.out.println("Declarando variable: " + id1 + " de tipo: " + tipo.toString());
+                        // Agregar la variable a la tabla de símbolos
+                        String nuevotipo= simbolito.Casteartipo(tipo);
+                        simbolito.tipo = nuevotipo;
+                        System.out.println("Agregando variable a la tabla de símbolos");
+                        entorno.Agregarsimbolo(id1, simbolito);
+                        entorno.ImprimirTabla();
+                    }
+                }
+            } else if (tipo == TipoDato.CARACTER){
+                for (String id1 : id) {
+                    boolean existe = entorno.ExisteSimbolo(id1);
+                    if (existe) {
+                        System.out.println("ERROR Semantico: Variable " + id1 + " ya declarada");
+                    } else {
+                        Simbolito simbolito = new Simbolito(id1, tipo.toString(), null, entorno);
+                        System.out.println("Declarando variable: " + id1 + " de tipo: " + tipo.toString());
+                        // Agregar la variable a la tabla de símbolos
+                        String nuevotipo= simbolito.Casteartipo(tipo);
+                        simbolito.tipo = nuevotipo;
+                        System.out.println("Agregando variable a la tabla de símbolos");
+                        entorno.Agregarsimbolo(id1, simbolito);
+                        entorno.ImprimirTabla();
+                    }
+                }
+            }
+            else{
                 for (String id1 : id) {
                     System.out.println("ERROR: Tipo de dato no reconocidoo" );
                     textAreaGG2.setText(textAreaGG2.getText()+"\n"+"ERROR: Tipo de dato no reconocido");

@@ -106,7 +106,7 @@ JidentificadorJ = [a-zA-Z][a-zA-Z0-9_]*
 ";"                 {Token NuevoToken = new Token("TkSimPUNTOYCOMA",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimPUNTOYCOMA> Tk: " + yytext());return new Symbol(sym.TkSimPUNTOYCOMA, yycolumn, yyline, yytext());}
 ":"                 {Token NuevoToken = new Token("TkSimDOSPUNTOS",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimDOSPUNTOS> Tk: " + yytext());return new Symbol(sym.TkSimDOSPUNTOS, yycolumn, yyline, yytext());}
 "."                 {Token NuevoToken = new Token("TkSimPUNTO",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimPUNTO> Tk: " + yytext());return new Symbol(sym.TkSimPUNTO, yycolumn, yyline, yytext());}
-","                 {Token NuevoToken = new Token("TkSimCOMA",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimPUNTO> Tk: " + yytext());return new Symbol(sym.TkSimPUNTO, yycolumn, yyline, yytext());}
+","                 {Token NuevoToken = new Token("TkSimCOMA",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimCOMA> Tk: " + yytext());return new Symbol(sym.TkSimCOMA, yycolumn, yyline, yytext());}
 "="                 {Token NuevoToken = new Token("TkSimIGUAL",yytext(),yyline,yycolumn);Funcion.TokenList.add(NuevoToken);System.out.println("Se acepto el Token  <TkSimIGUAL> Tk: " + yytext());return new Symbol(sym.TkSimIGUAL, yycolumn, yyline, yytext());}
 
 

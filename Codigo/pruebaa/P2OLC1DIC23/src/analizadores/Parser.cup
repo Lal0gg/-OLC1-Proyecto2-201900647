@@ -94,6 +94,7 @@ precedence right UMENOS;
 
 
 
+
 // ------------  GRAMATICA  ------------
 
 start with inicio; //Simbolo inicial
@@ -153,34 +154,32 @@ expresion ::=     TkJENTERO :a    {:RESULT = new DataPrimitiva(a,TipoDato.ENTERO
                 |expresion:a TkSimOR expresion:b     {:RESULT = new OperacionLogica((Instruccion)a,(Instruccion)b,TipoOperacion.OR);:}
                 |TkSimPARENTESISAbre expresion:a TkSimPARENTESISCierra {:RESULT = a;:}
 ;
-
-declaracionVariable::=      tipoDatoReservado:a TkJIdentificador:b TkSimPUNTOYCOMA {:
-                                                                                      RESULT = new instDeclararVariableSola(b,tablaGlobal,(TipoDato)a).Interpretarr();
-
-                                                                                 :}
-                        |   tipoDatoReservado:a TkJIdentificador:b TkSimIGUAL expresion:c TkSimPUNTOYCOMA {:
-                                                                                                            RESULT = new instDeclararVariable((TipoDato) a,b,(Instruccion)c ,tablaGlobal).Interpretarr();
-                                                                                                          :}
-                        | tipoDatoReservado:a  listaIds:b
-                                                                            {:
-                                                                                RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,tablaGlobal).Interpretarr();
-
-                                                                             :}
+// entero a;
+declaracionVariable::=  tipoDatoReservado:a  listaIds:b TkSimPUNTOYCOMA  {:
+                                                                            RESULT = new instDeclararVariableSolaList((TipoDato)a,(LinkedList<String>)b,tablaGlobal).Interpretarr();
+                                                                         :}
+                            | tipoDatoReservado:a listaIds:b TkSimIGUAL expresion:c TkSimPUNTOYCOMA {:
+                                                                                                    RESULT = new instDeclararVariable((TipoDato) a,(LinkedList<String>)b,(Instruccion)c ,tablaGlobal).Interpretarr();
+                                                                                                     :}
 ;
 
-listaIds ::= TkJIdentificador:a {:
-                                LinkedList<String> result = new LinkedList<>();
-                                result.add(a);
-                                RESULT = result;
-                            :}
-            | listaIds:b TkSimCOMA TkJIdentificador:a  TkSimPUNTOYCOMA{:
-                LinkedList<String> result = (LinkedList<String>) b;
-                result.add(a);
-                RESULT = result;
-            :}
+asignacionVariable::= listaIds:a TkSimIGUAL expresion:b TkSimPUNTOYCOMA {:
+                                                                          RESULT = new instAsignarVariable((LinkedList<String>)a,(Instruccion)b,tablaGlobal).Interpretarr();
+                                                                         :}
 ;
 
-
+listaIds ::=   listaIds:b  TkSimCOMA    TkJIdentificador:a
+                                                                                      {:
+                                                                                          LinkedList<String> result = (LinkedList<String>) b;
+                                                                                          result.add(a);
+                                                                                          RESULT = result;
+                                                                                      :}
+                |TkJIdentificador:a {:
+                                               LinkedList<String> result = new LinkedList<>();
+                                               result.add(a);
+                                               RESULT = result;
+                                   :}
+;
 
 tipoDatoReservado::= TkResENTERO {:RESULT = TipoDato.ENTERO;:}
                     | TkResDOBLE  {:RESULT =TipoDato.DECIMAL;:}

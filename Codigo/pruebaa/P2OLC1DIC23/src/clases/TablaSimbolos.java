@@ -75,20 +75,21 @@ public class TablaSimbolos {
 
 
     public void ImprimirTabla() {
+        System.out.println("===== TABLA DE SIMBOLOS =====");
         TablaSimbolos entorno = this;
         while (entorno != null) {
-            System.out.println("ENTORNO: " + entorno.toString());
-            for (String key : entorno.getActual().keySet()) {
-                System.out.println("SIMBOLO: " + entorno.getActual().get(key).ToxdString());
+            System.out.println("== Nivel de ámbito ==");
+            HashMap<String, Simbolito> actual = entorno.getActual();
+
+            for (String id : actual.keySet()) {
+                Simbolito simbolo = actual.get(id);
+                System.out.println("ID: " + id + ", Tipo: " + simbolo.getTipo() + ", Valor: " + simbolo.getValor());
+                // Puedes agregar más información según la estructura de tu Simbolito
             }
+
             entorno = entorno.getAnterior();
         }
+
+        System.out.println("===========================");
     }
-
-
-
-
-
-
-
-}
+    }
